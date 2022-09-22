@@ -3,7 +3,7 @@ import React from "react";
 export default function Footer()
 {
     return(
-        <div className="w-full h-max bg-[#202124] py-2 shadow-md shadow-blue-200 bottom-0">
+        <div className="w-full h-max bg-[#111111] py-2 shadow-md shadow-blue-200 bottom-0">
             <div className="container mx-auto">
                 <div className="flex flex-row justify-center items-center gap-24 p-8">
                     <div className="flex flex-col justify-center items-center hover:cursor-pointer">
