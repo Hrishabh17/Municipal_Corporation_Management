@@ -18,7 +18,7 @@ export default function HomeBody()
                     </input>
                 </div>
                 <div className="flex flex-row items-center justify-center mt-24 h-max p-4 gap-12">
-                    <div onClick={()=>{navigate('/signup')}} className="flex flex-col justify-center items-center w-1/4 p-4 border-[1.5px] border-gray-400 h-max bg-black rounded-lg shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800 min-h-[170px]">
+                    <div onClick={()=>{navigate('/register')}} className="flex flex-col justify-center items-center w-1/4 p-4 border-[1.5px] border-gray-400 h-max bg-black rounded-lg shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800 min-h-[170px]">
                         <div className="flex flex-row justify-center items-center gap-4">
                             <h1 className="text-white font-[Poppins] font-semibold text-lg">Citizen Registration</h1>
                             <BsFillPersonPlusFill className="text-white text-3xl"/>
