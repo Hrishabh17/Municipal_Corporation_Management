@@ -6,9 +6,9 @@ export default function Login()
     const navigate = useNavigate()
     
     return(
-        <div className="w-full h-[100vh] bg-[#080808] py-2">
+        <div className="w-full h-[100vh] bg-[#171717] py-2">
             <div className="container mx-auto">
-                <div className="flex flex-col items-center justify-center mt-16 w-1/3 mx-auto border-[0.5px] border-gray-300 p-4 gap-8 rounded-lg">
+                <div className="flex flex-col items-center justify-center mt-16 w-1/3 mx-auto p-4 gap-8 rounded-xl bg-[#303030]">
                     
                     <div className='flex flex-row items-center justify-center w-4/5 border-b-[0.5px] border-b-white'>
                         <h1 className='text-white font-[Poppins] text-xl font-semibold py-4'>Login</h1>
