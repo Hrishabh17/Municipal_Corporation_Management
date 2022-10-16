@@ -29,18 +29,18 @@ export default function Header()
 }, [dropdown])
 
    return (
-    <div className="w-full h-max bg-[#202124] py-2 shadow-md shadow-blue-200 fixed top-0">
-      <div className="container mx-auto">
+    <div className="w-full h-max bg-[#171717] py-2 shadow-md shadow-gray-400 fixed top-0">
+      <div className="container mx-auto p-2">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2">
             <img src="logo.png" alt="logo" className="h-10 w-10"></img>
-            <h1 className="text-white font-[Lobster] font-light">my city my pride</h1>
+            <h1 className="text-white font-[Lobster] font-light text-lg">my city my pride</h1>
           </div>
           <div className="flex flex-row justify-center items-center gap-6">
             {
                   Links.map((link)=>(
                     <li key={link.name} className='list-none'>
-                      <a href={link.link} className='text-white hover:underline underline-offset-8 underline-white duration-500 font-[Poppins]'>{link.name}</a>
+                      <a href={link.link} className='text-white text-lg hover:text-blue-500 hover:font-semibold duration-100 font-[Poppins] ease-in-out'>{link.name}</a>
                     </li>
                   ))
               }
@@ -56,10 +56,10 @@ export default function Header()
                 </div>
                 {
                   dropdown && 
-                  <div className="flex flex-col justify-center items-center absolute text-white text-center px-4 w-[200px] py-2 bg-gray-700 text-md rounded-md list-none gap-2">
-                      <li className="hover:underline underline-offset-8 underline-white w-full hover:cursor-pointer"><a href="/settings">Settings</a></li>
-                      <li className="hover:underline underline-offset-8 underline-white w-full hover:cursor-pointer"><a href="/mycomplaints">Complaints</a></li>
-                      <li className="hover:underline underline-offset-8 underline-white w-full hover:cursor-pointer"><a href='/logout'>Logout</a></li>
+                  <div className="flex flex-col justify-center items-center absolute text-white text-center px-4 hover:px-0 w-[200px] bg-gray-700 text-md rounded-md list-none gap-2">
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href="/settings">Settings</a></li>
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href="/mycomplaints">Complaints</a></li>
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href='/logout'>Logout</a></li>
                   </div>
                 }
               </div>
