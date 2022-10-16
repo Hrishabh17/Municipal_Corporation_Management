@@ -10,7 +10,7 @@ export default function HomeBody()
     const navigate = useNavigate()
 
     return(
-        <div className="w-full h-max bg-[#080808] py-2 mt-14">
+        <div className="w-full h-max bg-[#171717]  py-2 mt-14">
             <div className="container mx-auto h-[720px]">
                 <div className="flex flex-row items-center justify-center mt-16">
                     <input type="text" placeholder="Search using complaint number" 
@@ -18,21 +18,21 @@ export default function HomeBody()
                     </input>
                 </div>
                 <div className="flex flex-row items-center justify-center mt-24 h-max p-4 gap-12">
-                    <div onClick={()=>{navigate('/register')}} className="flex flex-col justify-center items-center w-1/4 p-4 border-[1.5px] border-gray-400 h-max bg-black rounded-lg shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800 min-h-[170px]">
+                    <div onClick={()=>{navigate('/register')}} className="flex flex-col justify-center items-center w-1/4 p-4 h-max bg-[#303030] rounded-xl shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800 min-h-[170px]">
                         <div className="flex flex-row justify-center items-center gap-4">
                             <h1 className="text-white font-[Poppins] font-semibold text-lg">Citizen Registration</h1>
                             <BsFillPersonPlusFill className="text-white text-3xl"/>
                         </div>
                         <h1 className="text-gray-300 font-[Poppins] font-semibold text-sm py-4">Register through the citizen signup portal</h1>
                     </div>
-                    <div onClick={()=>{navigate('/login')}} className="flex flex-col justify-center items-center w-1/4 p-4 border-[1.5px] border-gray-400 h-max bg-black rounded-lg shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800  min-h-[170px]">
+                    <div onClick={()=>{navigate('/login')}} className="flex flex-col justify-center items-center w-1/4 p-4 h-max bg-[#303030] rounded-xl shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800  min-h-[170px]">
                         <div className="flex flex-row justify-center items-center gap-4">
                             <h1 className="text-white font-[Poppins] font-semibold text-lg">Login</h1>
                             <AiOutlineLogin className="text-white text-3xl"/>
                         </div>
                         <h1 className="text-gray-300 font-[Poppins] font-semibold text-sm py-4">Login through the portal in order to raise a new complaint</h1>
                     </div>
-                    <div onClick={()=>{navigate('/complaint')}} className="flex flex-col justify-center items-center w-1/4 p-4 border-[1.5px] border-gray-400 h-max bg-black rounded-lg shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800  min-h-[170px]">
+                    <div onClick={()=>{navigate('/complaint')}} className="flex flex-col justify-center items-center w-1/4 p-4 h-max bg-[#303030] rounded-xl shadow-md hover:scale-105 duration-200 gap-8 divide-y-[0.6px] hover:bg-blue-800  min-h-[170px]">
                         <div className="flex flex-row justify-center items-center gap-4">
                             <h1 className="text-white font-[Poppins] font-semibold text-lg">Raise a Complaint</h1>
                             <HiFlag className="text-white text-3xl"/>
