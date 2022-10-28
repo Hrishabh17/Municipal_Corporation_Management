@@ -59,6 +59,7 @@ export default function Header()
                   <div className="flex flex-col justify-center items-center absolute text-white text-center px-4 hover:px-0 w-[200px] bg-gray-700 text-md rounded-md list-none gap-2">
                       <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href="/settings">Settings</a></li>
                       <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href="/mycomplaints">Complaints</a></li>
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href='/empdash'>Dashboard</a></li>
                       <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href='/logout'>Logout</a></li>
                   </div>
                 }
