@@ -44,6 +44,8 @@ const item4={
 
 export default function WorkerDashBody(){
 
+    const [isDragging, setIsDragging] = useState(false)
+    const [dragId, setDragId] = useState('')
     const [state, setState] = useState({
         toDo:{
             title:"To Do",
@@ -61,6 +63,8 @@ export default function WorkerDashBody(){
 
 
     function handleOnDragEnd({destination, source}) {
+        setIsDragging(false)
+        
 
         if(!destination)
         {
@@ -78,7 +82,13 @@ export default function WorkerDashBody(){
 
             return prev
         })
+      }
 
+      function handleOnDragStart(e)
+      {
+        setIsDragging(true)
+        setDragId(e.draggableId)
+        console.log(e)
       }
 
     return(
@@ -89,11 +99,11 @@ export default function WorkerDashBody(){
                 </div>
                 <div className="flex flex-row items-start justify-between mt-4 w-11/12 mx-auto">
             
-                    <DragDropContext onDragEnd={handleOnDragEnd}>
+                    <DragDropContext onDragEnd={handleOnDragEnd} onDragStart={handleOnDragStart}>
                         {_.map(state, (data, key)=>{
                             return(
                                 
-                                    <div className="flex flex-col items-start justify-center w-1/4 px-6">
+                                    <div className={`flex flex-col items-start justify-center w-1/4 px-6 ${isDragging ? "border-[0.5px] border-white border-dashed rounded-xl":"border-0"}`}>
                                         <h1 className="font-[Poppins] text-white text-lg py-4 text-start">{data.title}</h1>
                                     
                                         <Droppable droppableId={key}>
@@ -105,8 +115,8 @@ export default function WorkerDashBody(){
                                                                 <Draggable key={el.id} index={index} draggableId={el.id}>
                                                                     {(provided)=>{
                                                                         return(
-                                                                            <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef} className="py-2">
-                                                                                <ToDo description={el}/>
+                                                                            <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef} className={`py-2`}>
+                                                                                <ToDo description={el} isdraggable={isDragging} dragid={dragId}/>
                                                                             </div>
                                                                         )
                                                                     }}
