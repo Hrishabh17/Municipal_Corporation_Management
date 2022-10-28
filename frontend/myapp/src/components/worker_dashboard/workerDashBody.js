@@ -88,7 +88,6 @@ export default function WorkerDashBody(){
       {
         setIsDragging(true)
         setDragId(e.draggableId)
-        console.log(e)
       }
 
     return(
@@ -116,7 +115,7 @@ export default function WorkerDashBody(){
                                                                     {(provided)=>{
                                                                         return(
                                                                             <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef} className={`py-2`}>
-                                                                                <ToDo description={el} isdraggable={isDragging} dragid={dragId}/>
+                                                                                <ToDo description={el} isdraggable={isDragging} dragid={dragId} column={data.title}/>
                                                                             </div>
                                                                         )
                                                                     }}
