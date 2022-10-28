@@ -1,12 +1,10 @@
-import React , { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import uuid from "react-uuid"
+import React from "react";
 import {MdCheckCircle} from "react-icons/md"
 
 export default function ToDo(props)
 {
     return(
-        <div className="bg-[#303030] w-full h-max p-4 shadow-md shadow-gray-900 rounded-xl hover:bg-gray-800" id={props.description.id}>
+        <div className={`bg-[#303030] w-full h-max p-4 shadow-md shadow-gray-900 rounded-xl hover:bg-gray-800 ${props.isdraggable && props.description.id === props.dragid ? "opacity-50" : "opacity-100"}`} id={props.description.id}>
             <div className="flex flex-col items-start justify-center gap-4">
                 <div className="flex flex-row items-center justify-center gap-4 text-white">
                     <MdCheckCircle className="text-lg"/>
