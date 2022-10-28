@@ -29,7 +29,7 @@ export default function Header()
 }, [dropdown])
 
    return (
-    <div className="w-full h-max bg-[#171717] py-2 shadow-md shadow-gray-400 fixed top-0">
+    <div className="w-full h-max bg-[#171717] py-2 shadow-md shadow-gray-400 fixed top-0 z-10">
       <div className="container mx-auto p-2">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row justify-start items-center gap-2">
