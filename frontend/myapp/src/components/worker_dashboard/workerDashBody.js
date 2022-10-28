@@ -125,8 +125,7 @@ export default function WorkerDashBody(){
                                                         })}
                                                         {provided.placeholder}
                                                     </div>
-                                                )
-                                            }}
+                                                )}}
                                         </Droppable>
                                     </div>
                             )

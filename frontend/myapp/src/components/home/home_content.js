@@ -10,6 +10,7 @@ export default function HomeBody()
     const navigate = useNavigate()
 
     return(
+        <React.StrictMode>
         <div className="w-full h-max bg-[#171717]  py-2 mt-14">
             <div className="container mx-auto h-[720px]">
                 <div className="flex flex-row items-center justify-center mt-16">
@@ -83,5 +84,6 @@ export default function HomeBody()
                 </div>
             </div>
         </div>
+        </React.StrictMode>
     )
 }
