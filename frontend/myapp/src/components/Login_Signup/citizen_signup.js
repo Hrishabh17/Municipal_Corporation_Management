@@ -10,7 +10,7 @@ export default function CitizenSignup()
     const [image, setImage] = useState(initialImage)
     const initialForm = {name:'', address:'', contactNum: '', password: '', confirmPassword: '', profileImage: image.userProfileImage}
     const [form, setForm] = useState(initialForm)
-
+    const [valid, setValid] = useState({contact:true, password:true, confirmPassword:true})
     const navigate = useNavigate()
     
     
@@ -35,6 +35,29 @@ export default function CitizenSignup()
         setForm({ ...form, [name]: value })
     }
 
+    const submitForm = ()=>{
+        if(form.contactNum.length !== 10){
+            setValid({...valid, contact:false})
+        }
+        else{
+            setValid({...valid, contact:true})
+        }
+
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,10}$/
+        if(!passwordRegex.test(form.password)){
+            console.log("password invalid")
+            setValid({...valid, password:false})
+        }
+        else if(form.password !== form.confirmPassword){
+            setValid({...valid, confirmPassword:false})
+        }
+        else{
+            setValid({...valid, confirmPassword:true})
+            setValid({...valid, password:true})
+        }
+    }
+
     return(
         <div className="w-full h-max bg-[#171717] py-2">
             <div className="container mx-auto">
@@ -55,17 +78,17 @@ export default function CitizenSignup()
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='contactNum' onChange={handleChange} value={form.contactNum} type="tel" placeholder="Contact Number" 
-                            className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
+                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.contact ? "border-[2px] border-white":"border-[2px] border-red-700"}`}>
                         </input>
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='password' onChange={handleChange} value={form.password} type="password" placeholder="Password" 
-                            className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
+                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.password ? "border-[2px] border-white":"border-[2px] border-red-700"}`}>
                         </input>
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='confirmPassword' onChange={handleChange} value={form.confirmPassword} type="password" placeholder="Confirm Password" 
-                            className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
+                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.confirmPassword ? "border-[2px] border-white":"border-[2px] border-red-700"}`}>
                         </input>
                     </div>
 
@@ -81,7 +104,7 @@ export default function CitizenSignup()
                             <input type="file" ref={inputFileRef} onChange={onFilechange} className='hidden'></input>
                         </div>
                     </div>
-                    <div className='flex flex-row items-center justify-center w-4/5'>
+                    <div className='flex flex-row items-center justify-center w-4/5' onClick={submitForm}>
                         <button className='w-full h-10 bg-white rounded-md shadow-sm hover:text-white font-[Poppins] px-4 outline-none font-medium hover:bg-blue-700 hover:duration-200'>Submit</button>
                     </div>
                     <div className='flex flex-row items-center justify-center w-full py-4'>
