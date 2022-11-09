@@ -10,6 +10,9 @@ import UserCompalints from './components/userPages/userPage';
 import AdminDashboard from './components/admin_dashboard/adminDashPage';
 import TabEmp from './components/admin_dashboard/emptable';
 import TabUser from './components/admin_dashboard/usertable';
+import Updateform from './components/Update_Profile/Update_page';
+
+
 
 
 function App() {
@@ -26,6 +29,7 @@ function App() {
           <Route path='/admindash' element={<AdminDashboard/>}/>
           <Route path='/TabEmp' element={<TabEmp/>}/>
           <Route path='/TabUser' element={<TabUser/>}/>
+          <Route path='/updateprofile' element={<Updateform/>}/>
         </Routes>
       </Router>
     </div>
