@@ -11,6 +11,9 @@ export default function CitizenSignup()
     const initialForm = {name:'', address:'', contactNum: '', password: '', confirmPassword: '', profileImage: image.userProfileImage}
     const [form, setForm] = useState(initialForm)
     const [valid, setValid] = useState({contact:true, password:true, confirmPassword:true})
+    const [message, setMessage] = useState({msg:''})
+    const [submit, setSubmit] = useState(false)
+
     const navigate = useNavigate()
     
     
@@ -20,6 +23,7 @@ export default function CitizenSignup()
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setImage({ userProfileImage: reader.result })
+                console.log()
             }
         }
         reader.readAsDataURL(e.target.files[0])
@@ -30,31 +34,50 @@ export default function CitizenSignup()
     }
 
     const handleChange = (e)=>{
-        console.log(e.target.value)
+        // console.log(e.target.value)
         const { name, value } = e.target
         setForm({ ...form, [name]: value })
     }
 
     const submitForm = ()=>{
         if(form.contactNum.length !== 10){
-            setValid({...valid, contact:false})
+            console.log(form.contactNum, form.contactNum.length)
+            setValid(valid => ({...valid, contact:false}))
+            console.log('Invalid Contact')
+            setMessage(message => ({...message, msg:'Invalid Contact Number'}))
+            console.log(message)
         }
         else{
-            setValid({...valid, contact:true})
+            setValid(valid => ({...valid, contact:true}))
+            console.log('Valid Contact')
         }
 
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,15}$/
 
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,10}$/
         if(!passwordRegex.test(form.password)){
-            console.log("password invalid")
-            setValid({...valid, password:false})
+            setValid(valid => ({...valid, password:false}))
+            setValid(valid => ({...valid, confirmPassword:false}))
+            setMessage(message => ({...message, msg:'Invalid Password'}))
         }
-        else if(form.password !== form.confirmPassword){
-            setValid({...valid, confirmPassword:false})
+        if(passwordRegex.test(form.password) && form.password !== form.confirmPassword){
+            console.log("password don't match")
+            setValid(valid => ({...valid, password:true}))
+            setValid(valid => ({...valid, confirmPassword:false}))
+            setMessage(message => ({...message, msg:"Passwords don't match"}))
         }
-        else{
-            setValid({...valid, confirmPassword:true})
-            setValid({...valid, password:true})
+        if(passwordRegex.test(form.password) && form.password === form.confirmPassword){
+            setValid(valid => ({...valid, confirmPassword:true}))
+            setValid(valid => ({...valid, password:true}))
+        }
+
+        if(valid.confirmPassword && valid.contact && valid.password){
+            setMessage(message => ({...message, msg:""}))
+            setSubmit(true)
+            console.log(form)
+        }
+
+        if(!valid.confirmPassword || !valid.contact || !valid.password){
+            setSubmit(false)
         }
     }
 
@@ -66,6 +89,12 @@ export default function CitizenSignup()
                     <div className='flex flex-row items-center justify-center w-4/5 border-b-[0.5px] border-b-white'>
                         <h1 className='text-white font-[Poppins] text-xl font-semibold py-4'>Register</h1>
                     </div>
+                    {submit && <div className={` font-[Poppins] h-2 text-red-600 message`}>
+                            
+                    </div>}
+                    {!submit && <div className={` font-[Poppins] h-2 text-red-600 message`}>
+                           {message.msg} 
+                    </div>}
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='name' onChange={handleChange} value={form.name} type="text" placeholder="Name" 
                             className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
@@ -78,17 +107,17 @@ export default function CitizenSignup()
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='contactNum' onChange={handleChange} value={form.contactNum} type="tel" placeholder="Contact Number" 
-                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.contact ? "border-[2px] border-white":"border-[2px] border-red-700"}`}>
+                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.contact ? "border-[2px] border-white" : "border-[2px] border-red-700"}`}>
                         </input>
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='password' onChange={handleChange} value={form.password} type="password" placeholder="Password" 
-                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.password ? "border-[2px] border-white":"border-[2px] border-red-700"}`}>
+                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.password ? "border-[2px] border-white" : "border-[2px] border-red-700"}`}>
                         </input>
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='confirmPassword' onChange={handleChange} value={form.confirmPassword} type="password" placeholder="Confirm Password" 
-                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.confirmPassword ? "border-[2px] border-white":"border-[2px] border-red-700"}`}>
+                            className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.confirmPassword ? "border-[2px] border-white" : "border-[2px] border-red-700"}`}>
                         </input>
                     </div>
 
