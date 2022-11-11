@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {AiOutlineLogin} from 'react-icons/ai'
 import {BsFillPersonPlusFill} from 'react-icons/bs'
 import {HiFlag} from 'react-icons/hi'
 import CountUp from 'react-countup';
 import { useNavigate } from 'react-router-dom';
+const axios = require('axios')
 
 export default function HomeBody()
 {
+    const [data, setData] = useState([{}])
+
+    async function getData() {
+        await axios.get('/home').then((response)=>{
+            setData(response.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    useEffect(()=>{
+        getData()
+    }, [])
+
     const navigate = useNavigate()
 
     return(
@@ -45,7 +60,7 @@ export default function HomeBody()
                     <div className="flex flex-col justify-center items-center w-1/4 p-4 border-2 border-white h-max gap-8 bg-gray-300 text-center rounded-lg shadow-md hover:scale-105 duration-200">
                         <h1 className="text-black font-[Poppins] text-2xl font-semibold">Total Complaints</h1>
                         <div className="w-1/4">
-                            <CountUp start={0} end={105} delay={1} duration={5}>
+                            <CountUp start={0} end={data[0].total} delay={1} duration={5}>
                             {({ countUpRef }) => (
                                 <div className="text-black font-[Poppins] text-3xl font-semibold">
                                 <span ref={countUpRef} />
@@ -58,7 +73,7 @@ export default function HomeBody()
                     <div className="flex flex-col justify-center items-center w-1/4 p-4 border-2 border-white h-max gap-8 bg-green-100 text-center rounded-lg shadow-md hover:scale-105 duration-200">
                         <h1 className="text-green-900 font-[Poppins] text-2xl font-semibold">Resolved Complaints</h1>
                         <div className="w-1/4">
-                            <CountUp start={0} end={87} delay={1} duration={5}>
+                            <CountUp start={0} end={data[0].resolved} delay={1} duration={5}>
                             {({ countUpRef }) => (
                                 <div className="text-green-900 font-[Poppins] text-3xl font-semibold">
                                 <span ref={countUpRef} />
@@ -71,7 +86,7 @@ export default function HomeBody()
                     <div className="flex flex-col justify-center items-center w-1/4 p-4 border-2 border-white h-max gap-8 bg-red-100 text-center rounded-lg shadow-md hover:scale-105 duration-200">
                         <h1 className="text-red-900 font-[Poppins] text-2xl font-semibold">Pending Complaints</h1>
                         <div className="w-1/4">
-                            <CountUp start={0} end={18} delay={1} duration={5}>
+                            <CountUp start={0} end={data[0].pending} delay={1} duration={5}>
                             {({ countUpRef }) => (
                                 <div className="text-red-900 font-[Poppins] text-3xl font-semibold">
                                 <span ref={countUpRef} />
