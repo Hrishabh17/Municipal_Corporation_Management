@@ -15,7 +15,7 @@ app.use('/home', (req, res, next)=>{
             pending:42}])
 })
 
-app.use('/complaint', require('./routes/complaints'));
+app.use('/complaint', require('./routes/complaintsRoute'));
 
 // app.all('*', (req, res)=>{
 //     res.statusCode(404).send()

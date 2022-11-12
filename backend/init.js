@@ -1,10 +1,10 @@
-const sql = require('mysql')
+const sql = require('mysql2')
 const lineReader = require('line-reader');
 const fs = require('fs')
 const path = require("path");
 
 if(process.argv.length===4){
-    fs.writeFileSync(path.join(__dirname, "..", ".env"),
+    fs.writeFileSync(path.join(__dirname, ".", ".env"),
     `DB_USER=${process.argv[2]}\n` +
     `DB_NAME=dbms\n` +
     `DB_PASSWORD=${process.argv[3]}\n` +
