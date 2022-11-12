@@ -1,18 +1,6 @@
 const {con} = require('../database')
 const generateUniqueId = require('generate-unique-id');
 
-
-
-
-// const describeComplaints = async () =>{
-//     console.log('Inside')
-//     const query = 'describe comments'
-//     con.query(query, function (err, result, fields) {
-//         if (err) throw err;
-//         return result
-//       });
-// }
-
 const registerComplaints = async(data) =>{
     const id = generateUniqueId({
         length: 5,
@@ -30,7 +18,7 @@ const registerComplaints = async(data) =>{
     // current year
     let year = date_ob.getFullYear();
     // current hours
-    let hours = ("0" + date_ob.getHours());
+    let hours = date_ob.getHours();
     // current minutes
     let minutes = date_ob.getMinutes();
     // current seconds
@@ -39,17 +27,15 @@ const registerComplaints = async(data) =>{
     const inDate = `${year}-${month}-${day}`
     const time = `${hours}:${minutes}:${seconds}`
 
-    const query = `Insert into comments values(${id}, ${data.description}, ${data.problemImage}, 
-                    "Pending", ${data.location}, ${null}, ${null}, ${time}, ${inDate}, ${null}, ${null}, ${data.department}, 
+    const query = `Insert into complaint values(${id}, "${data.description}", "${data.problemImage}", 
+                    "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.department}", ${null},
                     ${null})`
                     
-    console.log(query)
-
     con.query(query, (err, res, fields)=>{
         if(err) throw err;
-        console.log(res)
     })
-
+    const registrationTime = `${inDate} ${time}`
+    return {complaintId:id, registrationTime:registrationTime, location:data.location, description:data.description};
 }
 
 module.exports = {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FiUpload } from "react-icons/fi"
 const axios = require('axios')
 
@@ -15,8 +15,8 @@ export default function Complaint()
     const [message, setMessage] = useState({msg:''})
     const [submit, setSubmit] = useState(false)
     const [check, setCheck] = useState(false)
-
-    // const navigate = useNavigate()
+    
+    const navigate = useNavigate()
 
     async function regComplaint(){
         await axios.post('/complaint', 
@@ -24,6 +24,10 @@ export default function Complaint()
           )
           .then(function (response) {
             console.log(response);
+            if(response.status === 200){
+                // alert(`Your Complaint id is ${response.data.complaintId}`)
+                navigate('/success', {state:{complaintInfo:response.data}})
+            }
           })
           .catch(function (error) {
             console.log(error);

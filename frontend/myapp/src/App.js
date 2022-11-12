@@ -10,6 +10,7 @@ import UserCompalints from './components/userPages/userPage';
 import AdminDashboard from './components/admin_dashboard/adminDashPage';
 import TabEmp from './components/admin_dashboard/emptable';
 import TabUser from './components/admin_dashboard/usertable';
+import SuccessMsgPage from './components/successPage';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path='/admindash' element={<AdminDashboard/>}/>
           <Route path='/TabEmp' element={<TabEmp/>}/>
           <Route path='/TabUser' element={<TabUser/>}/>
+          <Route path='/success' element={<SuccessMsgPage/>}/>
         </Routes>
       </Router>
     </div>
