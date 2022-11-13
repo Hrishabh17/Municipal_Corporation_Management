@@ -5,6 +5,12 @@ const registerComplaint = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const complaintData = (req, res)=>{
+    const data =  complaintsModel.complaintData(req.body)
+    data.then((response)=>res.json(response))
+}
+
 module.exports = {
-    registerComplaint
+    registerComplaint,
+    complaintData
 }
