@@ -16,8 +16,20 @@ const searchData = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const fetchAllData = (req, res)=>{
+    const data =  complaintsModel.fetchAllData()
+    data.then((response)=>res.json(response))
+}
+
+const updatecomplaint = (req, res)=>{
+    const data =  complaintsModel.updatecomplaint(req.body)
+    data.then((response)=>res.json(response))
+}
+
 module.exports = {
     registerComplaint,
     complaintData,
-    searchData
+    searchData,
+    fetchAllData,
+    updatecomplaint
 }

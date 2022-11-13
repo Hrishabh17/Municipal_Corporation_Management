@@ -18,7 +18,7 @@ const registerUser = async(data) =>{
 
 
 const auth = async(data) =>{
-    const query =  `Select user_name from users where(user_name = "${data.username}" and passcode = "${data.password}")`
+    const query =  `Select user_name, user_number from users where(user_name = "${data.username}" and passcode = "${data.password}")`
     const value = await new Promise((resolve, reject)=>{
         con.query(query, (err, res, fields) => {
             if (err)
@@ -27,7 +27,7 @@ const auth = async(data) =>{
                 resolve({exists:0})
             }
             else{
-                resolve({exists:1})
+                resolve({exists:1, user:res[0].user_name, user_id:res[0].user_number})
             }
         })
     })

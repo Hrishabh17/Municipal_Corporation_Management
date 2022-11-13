@@ -17,4 +17,15 @@ router.route('/search/:id')
 .post(complaintController.searchData)
 .put(complaintController.searchData)
 
+router.route('/getallcomplaints')
+.get(complaintController.fetchAllData)
+.post(complaintController.fetchAllData)
+.put(complaintController.fetchAllData)
+
+
+router.route('/updatecomplaint')
+.get(complaintController.updatecomplaint)
+.post(complaintController.updatecomplaint)
+.put(complaintController.updatecomplaint)
+
 module.exports = router
