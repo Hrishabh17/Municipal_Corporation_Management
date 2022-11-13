@@ -54,6 +54,10 @@ export default function HomeBody()
         }
     }
 
+    const handleSearchClick=(e)=>{
+        navigate('/viewcomplaint', {state:searchData})
+    }
+
     useEffect(()=>{
         getData()
     }, [])
@@ -71,7 +75,7 @@ export default function HomeBody()
                     {found && <ul className="w-4/5 h-12 bg-white border-t-[0.2px] border-black  text-black font-[Poppins] px-8 py-2 outline-none font-medium list-none text-left">
                     {
                         searchData?.map((data)=>(
-                            <li className="text-black">
+                            <li className="text-black cursor-pointer hover:text-red-900" onClick={handleSearchClick}>
                                 {data.complaint_number}
                             </li>
                         )) 

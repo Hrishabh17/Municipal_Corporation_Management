@@ -11,6 +11,7 @@ import AdminDashboard from './components/admin_dashboard/adminDashPage';
 import TabEmp from './components/admin_dashboard/emptable';
 import TabUser from './components/admin_dashboard/usertable';
 import SuccessMsgPage from './components/successPage';
+import ComplaintDetailPage from './components/complaint/complaintDetailPage';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path='/TabEmp' element={<TabEmp/>}/>
           <Route path='/TabUser' element={<TabUser/>}/>
           <Route path='/success' element={<SuccessMsgPage/>}/>
+          <Route path='/viewcomplaint' element={<ComplaintDetailPage/>}/>
         </Routes>
       </Router>
     </div>
