@@ -1,5 +1,6 @@
 const express = require('express')
 const parser = require('body-parser')
+const {con} = require('./database')
 
 const app = express()
 const cors = require('cors');
@@ -7,13 +8,6 @@ const cors = require('cors');
 app.use(cors());
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
-
-// Number of complaints (send to the home page)
-app.use('/home', (req, res, next)=>{
-    res.send([{total: 100,
-            resolved:58,
-            pending:42}])
-})
 
 app.use('/complaint', require('./routes/complaintsRoute'));
 app.use('/user', require('./routes/userRoute'));

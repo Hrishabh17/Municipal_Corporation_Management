@@ -11,7 +11,8 @@ export default function HomeBody()
     const [data, setData] = useState([{}])
 
     async function getData() {
-        await axios.get('/home').then((response)=>{
+        await axios.get('/complaint/getCount').then((response)=>{
+            console.log(response.data)
             setData(response.data)
         }).catch((err)=>{
             console.log(err)

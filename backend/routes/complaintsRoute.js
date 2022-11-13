@@ -7,4 +7,9 @@ router.route('/')
 .post(complaintController.registerComplaint)
 .put(complaintController.registerComplaint)
 
+router.route('/getCount')
+.get(complaintController.complaintData)
+.post(complaintController.complaintData)
+.put(complaintController.complaintData)
+
 module.exports = router

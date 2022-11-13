@@ -10,12 +10,6 @@ const auth = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
-// const auth = async(req, res)=>{
-//     const response = userModel.auth(req.body)
-//     console.log(response)
-//     res.json(response)
-// }
-
 
 module.exports = {
     registerUser,
