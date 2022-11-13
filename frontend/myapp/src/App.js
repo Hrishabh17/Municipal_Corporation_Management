@@ -15,7 +15,8 @@ import ComplaintDetailPage from './components/complaint/complaintDetailPage';
 import { UserContext } from './components/context';
 import Contact from './components/contact_us/contact';
 import About from './components/about_us/about1';
-
+import WorkerSignup from './components/Login_Signup/worker_signup';
+import WorkerLogin from './components/Login_Signup/worker_login';
 
 function App() {
 
@@ -39,6 +40,9 @@ function App() {
                 <Route path='/viewcomplaint' element={<ComplaintDetailPage/>}/>
                 <Route path='/contact' element={<Contact/>}/>
                 <Route path='/About' element={<About/>}/>
+                <Route path='/WorkerSignup' element={<WorkerSignup/>}/>
+                <Route path='/WorkerLogin' element={<WorkerLogin/>}/>
+
             </Routes>
           </UserContext.Provider>
       </Router>
