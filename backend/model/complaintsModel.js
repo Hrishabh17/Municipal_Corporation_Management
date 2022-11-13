@@ -27,8 +27,8 @@ const registerComplaints = async(data) =>{
 
 
     const value = await new Promise((resolve, reject)=>{
-        const query = `Insert into complaint values(${id}, 4463, "${data.description}", "${data.problemImage}", 
-                        "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.department}", ${null},
+        const query = `Insert into complaint values(${id}, ${data.user}, "${data.description}", "${data.problemImage}", 
+                        "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.department}",
                         ${null})`
                         
         con.query(query, (err, res, fields)=>{
@@ -84,8 +84,44 @@ const searchData = async(data)=>{
     return {value: value}
 }
 
+const fetchAllData=async()=>{
+    const query = `select complaint_number, complaint_status, complaint_description, priority, complaint_type, registration_date, completion_time from complaint`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    console.log(value)
+    return value
+
+}
+
+const updatecomplaint=async(data)=>{
+    const query = `update complaint set complaint_status="${data.status}" where complaint_number = ${data.id}`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve({updated:true})
+            }
+        })
+    })
+
+    console.log(value)
+    return value
+
+}
+
 module.exports = {
     registerComplaints, 
     complaintData,
-    searchData
+    searchData,
+    fetchAllData,
+    updatecomplaint
 }
