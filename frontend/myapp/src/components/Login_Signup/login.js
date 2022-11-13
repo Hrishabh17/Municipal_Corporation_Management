@@ -1,9 +1,14 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context'
+
 const axios = require('axios')
 
 export default function Login()
 {
+
+    const {value, setValue} = useContext(UserContext)
+    console.log(value)
     const initialState = useState({username:'', password:''})
     const [form, setForm] = useState(initialState)
 
@@ -13,6 +18,7 @@ export default function Login()
           )
           .then(function (response) {
             if(response.status === 200 && response.data.exists === 1){
+                setValue({exists:true, user:'Hrishabh'})
                 alert('Login Successful')
                 navigate('/')
             }

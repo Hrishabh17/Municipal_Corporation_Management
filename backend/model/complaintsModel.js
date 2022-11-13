@@ -6,8 +6,6 @@ const registerComplaints = async(data) =>{
         length: 5,
         useLetters: false
       });
-
-    console.log(data)
     
     let date_ob = new Date();
     // current date
@@ -30,7 +28,7 @@ const registerComplaints = async(data) =>{
 
     const value = await new Promise((resolve, reject)=>{
         const query = `Insert into complaint values(${id}, 4463, "${data.description}", "${data.problemImage}", 
-                        "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.address}", ${null},
+                        "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.department}", ${null},
                         ${null})`
                         
         con.query(query, (err, res, fields)=>{
@@ -83,8 +81,6 @@ const searchData = async(data)=>{
             }
         })
     })
-
-    console.log(value)
     return {value: value}
 }
 

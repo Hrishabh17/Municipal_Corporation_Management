@@ -10,8 +10,6 @@ create table if not exists employee(ssn bigint not null,employee_name char(30) n
 
 create table if not exists registers(registered_Status char(20),complaint_number bigint not null,user_number bigint not null,foreign key(complaint_number) references complaint(complaint_number),foreign key(user_number) references users(user_number));
 
-create table if not exists email(email_address varchar(40) not null,email_password varchar(75) not null,ssn bigint,user_number bigint,profile_photo varchar(70),foreign key(user_number) references users(user_number),foreign key(ssn) references employee(ssn));
-
 create table if not exists department(department_number int not null,department_name char(20),ssn bigint not null,foreign key(ssn) references employee(ssn),primary key(department_name));
 
 create table if not exists worker(worker_id bigint not null,worker_name char(30),worker_start_time datetime,worker_end_time datetime,no_of_tasks_assigned mediumint,primary key(worker_id));
