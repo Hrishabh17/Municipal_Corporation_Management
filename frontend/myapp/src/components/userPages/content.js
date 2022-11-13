@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { UserContext } from '../context'
 import ComplaintIndividual from './complaintIndividual'
 
 export default function ComplaintSection(){
+
+
+  const {value, setValue} = useContext(UserContext) 
+  console.log(value);
+  const [user, setUser] = useState("") 
+  React.useEffect(() => {
+    if(value.exists === true){
+      setUser(value.user)
+    }
+  }, [])
+
   return(
    
 <div className='mt-[70px]  py-8 bg-[#171717] min-h-[700px] flex flex-col items-center justify-start gap-4'>
@@ -14,14 +26,25 @@ export default function ComplaintSection(){
 </div>
 
 <div >
-<h1 className="text-white font-[Poppins] text-2xl font-semibold mt-[20px]">Welcome Sarvesh!!</h1><br></br>
+<h1 className="text-white font-[Poppins] text-2xl font-semibold mt-[20px]">Welcome {user}!!</h1><br></br>
 <h3 className="text-white font-[Poppins] text-xl font-semibold"> Your complaints</h3>
 </div>
 
-      <ComplaintIndividual/>
-      <ComplaintIndividual/>
-      <ComplaintIndividual/>
-      <ComplaintIndividual/>
+<ComplaintIndividual
+        ComplaintNo = "1"
+        Issue = "Water issue"
+        Location = "Kothrud"
+      />
+      <ComplaintIndividual
+        ComplaintNo = "2"
+        Issue = "Electricity issue"
+        Location = "Vimannagar"
+      />
+      <ComplaintIndividual
+        ComplaintNo = "3"
+        Issue = "Garbage issue"
+        Location = "KP"
+      />
     </div>
 
     
