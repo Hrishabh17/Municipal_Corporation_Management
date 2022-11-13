@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiUpload } from "react-icons/fi"
+const axios = require('axios')
 
 export default function CitizenSignup()
 {
@@ -15,7 +16,20 @@ export default function CitizenSignup()
     const [submit, setSubmit] = useState(false)
 
     const navigate = useNavigate()
-    
+
+    async function regUser(){
+        await axios.post('/user', 
+          form  
+          )
+          .then(function (response) {
+            if(response.status === 200){
+                navigate('/login')
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
     
     const inputFileRef = useRef(null);
     const onFilechange = (e) => {
@@ -73,7 +87,9 @@ export default function CitizenSignup()
         if(valid.confirmPassword && valid.contact && valid.password){
             setMessage(message => ({...message, msg:""}))
             setSubmit(true)
-            console.log(form)
+            console.log('sending user for signup')
+            regUser()
+
         }
 
         if(!valid.confirmPassword || !valid.contact || !valid.password){

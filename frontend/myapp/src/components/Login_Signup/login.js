@@ -1,8 +1,37 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+const axios = require('axios')
 
 export default function Login()
 {
+    const initialState = useState({username:'', password:''})
+    const [form, setForm] = useState(initialState)
+
+    async function verify(){
+        await axios.post('/user/auth', 
+          form  
+          )
+          .then(function (response) {
+            if(response.status === 200 && response.data.exists === 1){
+                alert('Login Successful')
+                navigate('/')
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+
+    const handleChange = (e)=>{
+        const { name, value } = e.target
+        setForm({ ...form, [name]: value })
+    }
+
+    const handleClick = (e)=>{
+        verify()
+    }
+
     const navigate = useNavigate()
     
     return(
@@ -14,16 +43,16 @@ export default function Login()
                         <h1 className='text-white font-[Poppins] text-xl font-semibold py-4'>Login</h1>
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
-                        <input type="text" placeholder="Username" 
+                        <input type="text" placeholder="Username" name='username' onChange={handleChange}
                             className="w-full h-12 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
                         </input>
                     </div>
                     <div className='flex flex-row items-center justify-center w-4/5'>
-                        <input type="password" placeholder="Password" 
+                        <input type="password" placeholder="Password" name='password' onChange={handleChange}
                             className="w-full h-12 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
                         </input>
                     </div>
-                    <div className='flex flex-row items-center justify-center w-4/5'>
+                    <div className='flex flex-row items-center justify-center w-4/5' onClick={handleClick}>
                         <button className='w-full h-10 bg-white rounded-md shadow-sm hover:text-white font-[Poppins] px-4 outline-none font-medium hover:bg-blue-700 hover:duration-200'>Submit</button>
                     </div>
                     <div className='flex flex-row items-center justify-center w-full py-4'>

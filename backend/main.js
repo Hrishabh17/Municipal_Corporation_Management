@@ -16,6 +16,7 @@ app.use('/home', (req, res, next)=>{
 })
 
 app.use('/complaint', require('./routes/complaintsRoute'));
+app.use('/user', require('./routes/userRoute'));
 
 // app.all('*', (req, res)=>{
 //     res.statusCode(404).send()

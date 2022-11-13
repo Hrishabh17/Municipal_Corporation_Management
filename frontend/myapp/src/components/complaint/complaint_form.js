@@ -25,7 +25,6 @@ export default function Complaint()
           .then(function (response) {
             console.log(response);
             if(response.status === 200){
-                // alert(`Your Complaint id is ${response.data.complaintId}`)
                 navigate('/success', {state:{complaintInfo:response.data}})
             }
           })
