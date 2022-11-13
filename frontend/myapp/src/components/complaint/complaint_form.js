@@ -1,10 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiUpload } from "react-icons/fi"
+import { UserContext } from '../context'
 const axios = require('axios')
 
 export default function Complaint()
 {
+
+    const {value, setValue} = useContext(UserContext)
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        if(value.exists === false){
+            navigate('/login')
+        }
+    }, [])
+
     let initialImage = {
         userProfileImage: "logo.png"
     }
@@ -16,7 +27,6 @@ export default function Complaint()
     const [submit, setSubmit] = useState(false)
     const [check, setCheck] = useState(false)
     
-    const navigate = useNavigate()
 
     async function regComplaint(){
         await axios.post('/complaint', 
