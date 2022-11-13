@@ -1,7 +1,9 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useContext} from "react";
 import {BiDownArrow, BiUpArrow} from "react-icons/bi"
+import { useNavigate } from "react-router-dom";
 
 import header_user from '../../../src/images/header_user.jpg'
+import { UserContext } from "../context";
 
 
 export default function Header()
@@ -11,6 +13,10 @@ export default function Header()
     {name:"About",link:"/about"},
     {name:"Contact",link:"/contact"},
   ];
+
+  const navigate = useNavigate()
+
+  const {value, setValue} = useContext(UserContext)
 
   const [dropdown, setDropdown] = useState(false)
   const dropdownRef = useRef()
@@ -40,10 +46,10 @@ export default function Header()
             {
                   Links.map((link)=>(
                     <li key={link.name} className='list-none'>
-                      <a href={link.link} className='text-white text-lg hover:text-blue-500 hover:font-semibold duration-100 font-[Poppins] ease-in-out'>{link.name}</a>
+                      <h1 onClick={()=>{navigate(`${link.link}`)}} className='text-white text-lg cursor-pointer hover:text-blue-500 hover:font-semibold duration-100 font-[Poppins] ease-in-out'>{link.name}</h1>
                     </li>
                   ))
-              }
+            }
           </div>
             <div ref={dropdownRef}>
               <div>
@@ -57,10 +63,10 @@ export default function Header()
                 {
                   dropdown && 
                   <div className="flex flex-col justify-center items-center absolute text-white text-center px-4 hover:px-0 w-[200px] bg-gray-700 text-md rounded-md list-none gap-2">
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href="/settings">Settings</a></li>
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href="/usercomplaints">Complaints</a></li>
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href='/empdash'>Dashboard</a></li>
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1"><a href='/logout'>Logout</a></li>
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{navigate('/settings')}}>Settings</li>
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{navigate('/usercomplaints')}}>Complaints</li>
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{navigate('/empdash')}}>Dashboard</li>
+                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{setValue({exists:false}); navigate('/')}}>Logout</li>
                   </div>
                 }
               </div>
