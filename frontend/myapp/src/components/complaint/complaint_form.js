@@ -9,10 +9,10 @@ export default function Complaint()
         userProfileImage: "logo.png"
     }
     const [image, setImage] = useState(initialImage)
-    const initialForm = {pFname:'', pLname:'', pAddress:'', pContactNum: '', pContactNum2: '', department: '', description:'', location:'', problemImage: image.userProfileImage}
+    const initialForm = {department: '', description:'', location:'', problemImage: image.userProfileImage}
     const [form, setForm] = useState(initialForm)
-    const [valid, setValid] = useState({contact1:true, contact2:true})
-    const [message, setMessage] = useState({msg:''})
+    // const [valid, setValid] = useState({contact1:true, contact2:true})
+    // const [message, setMessage] = useState({msg:''})
     const [submit, setSubmit] = useState(false)
     const [check, setCheck] = useState(false)
     
@@ -66,33 +66,36 @@ export default function Complaint()
 
 
     const submitForm = ()=>{
-        if(form.pContactNum.length !== 10){
-            setValid(valid => ({...valid, contact1:false}))
-            setMessage(message => ({...message, msg:'Invalid Contact Number'}))
-        }
-        else{
-            setValid(valid => ({...valid, contact1:true}))
-        }
+        // if(form.pContactNum.length !== 10){
+        //     setValid(valid => ({...valid, contact1:false}))
+        //     setMessage(message => ({...message, msg:'Invalid Contact Number'}))
+        // }
+        // else{
+        //     setValid(valid => ({...valid, contact1:true}))
+        // }
 
-        if(form.pContactNum2.length !== 10){
-            setValid(valid => ({...valid, contact2:false}))
-            setMessage(message => ({...message, msg:'Invalid Alternate Contact Number'}))
-        }
-        else{
-            setValid(valid => ({...valid, contact2:true}))
-        }
+        // if(form.pContactNum2.length !== 10){
+        //     setValid(valid => ({...valid, contact2:false}))
+        //     setMessage(message => ({...message, msg:'Invalid Alternate Contact Number'}))
+        // }
+        // else{
+        //     setValid(valid => ({...valid, contact2:true}))
+        // }
 
-        if(valid.contact1 && valid.contact2 && check){
-            setMessage(message => ({...message, msg:""}))
-            setSubmit(true)
+        // if(valid.contact1 && valid.contact2 && check){
+        //     setMessage(message => ({...message, msg:""}))
+        //     setSubmit(true)
 
-            console.log('sending complaint')
-            regComplaint()
-        }
+        //     console.log('sending complaint')
+        //     regComplaint()
+        // }
 
-        if(!valid.contact1 || !valid.contact2){
-            setSubmit(false)
-        }
+        // if(!valid.contact1 || !valid.contact2){
+        //     setSubmit(false)
+        // }
+
+        setSubmit(true)
+        regComplaint()
     }
 
     return(
@@ -104,7 +107,7 @@ export default function Complaint()
                         <h1 className='text-white font-[Poppins] text-xl font-semibold py-4'>Register Complaint</h1>
                     </div>
 
-                    {submit && <div className={` font-[Poppins] h-2 text-red-600 message`}>
+                    {/* {submit && <div className={` font-[Poppins] h-2 text-red-600 message`}>
                             
                     </div>}
                     {!submit && <div className={` font-[Poppins] h-2 text-red-600 message`}>
@@ -137,7 +140,7 @@ export default function Complaint()
                         <input name='pContactNum2' onChange={handleChange} value={form.pContactNum2} type="tel" placeholder="Alternate Contact Number" 
                             className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.contact2 ? "border-[2px] border-white" : "border-[2px] border-red-700"}`}>
                             </input>
-                    </div>
+                    </div> */}
 
                     <div className='flex flex-row items-center justify-start w-4/5'>
                         <h1 className='text-white font-[Poppins] text-lg font-semibold pt-4'>Complaint Information</h1>
