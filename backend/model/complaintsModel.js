@@ -42,7 +42,7 @@ const registerComplaints = async(data) =>{
     return value;
 }
 
-const complaintData = async(req, res, next)=>{
+const complaintData = async()=>{
     const query1 = 'select count(complaint_number) as count from complaint where(complaint_status = "Pending")'
     const query2 = 'select count(complaint_number) as count from complaint where(complaint_status = "Resolved")'
 
@@ -71,7 +71,25 @@ const complaintData = async(req, res, next)=>{
             pending:pending_val[0].count}])
 }
 
+const searchData = async(data)=>{
+    const query1 = `select * from complaint where(complaint_number like "${data}%")`
+
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query1, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    console.log(value)
+    return {value: value}
+}
+
 module.exports = {
     registerComplaints, 
-    complaintData
+    complaintData,
+    searchData
 }

@@ -6,11 +6,18 @@ const registerComplaint = (req, res)=>{
 }
 
 const complaintData = (req, res)=>{
-    const data =  complaintsModel.complaintData(req.body)
+    const data =  complaintsModel.complaintData()
+    data.then((response)=>res.json(response))
+}
+
+const searchData = (req, res)=>{
+    console.log('reqbody : ', req.params.id)
+    const data =  complaintsModel.searchData(req.params.id)
     data.then((response)=>res.json(response))
 }
 
 module.exports = {
     registerComplaint,
-    complaintData
+    complaintData,
+    searchData
 }
