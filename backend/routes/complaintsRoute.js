@@ -12,4 +12,9 @@ router.route('/getCount')
 .post(complaintController.complaintData)
 .put(complaintController.complaintData)
 
+router.route('/search/:id')
+.get(complaintController.searchData)
+.post(complaintController.searchData)
+.put(complaintController.searchData)
+
 module.exports = router
