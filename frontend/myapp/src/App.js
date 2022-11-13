@@ -13,6 +13,8 @@ import TabUser from './components/admin_dashboard/usertable';
 import SuccessMsgPage from './components/successPage';
 import ComplaintDetailPage from './components/complaint/complaintDetailPage';
 import { UserContext } from './components/context';
+import Contact from './components/contact_us/contact';
+import About from './components/about_us/about1';
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
                 <Route path='/TabUser' element={<TabUser/>}/>
                 <Route path='/success' element={<SuccessMsgPage/>}/>
                 <Route path='/viewcomplaint' element={<ComplaintDetailPage/>}/>
+                <Route path='/contact' element={<Contact/>}/>
+                <Route path='/About' element={<About/>}/>
             </Routes>
           </UserContext.Provider>
       </Router>
