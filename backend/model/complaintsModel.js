@@ -28,7 +28,7 @@ const registerComplaints = async(data) =>{
     const time = `${hours}:${minutes}:${seconds}`
 
     const query = `Insert into complaint values(${id}, "${data.description}", "${data.problemImage}", 
-                    "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.department}", ${null},
+                    "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.address}", ${null},
                     ${null})`
                     
     con.query(query, (err, res, fields)=>{
