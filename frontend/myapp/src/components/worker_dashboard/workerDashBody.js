@@ -1,77 +1,84 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ToDo from "./toDo";
-import { v4 } from 'uuid';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import _ from "lodash";
-
-const item1={
-    id:v4(),
-    title:"Water Problem since 2 days",
-    priority:"High",
-    department:"Water Problem",
-    issueDate:"11/08/2022",
-    completionDate:"15/08/2022",
-    comment:""
-}
-const item2={
-    id:v4(),
-    title:"Road Problem in Kothrud",
-    priority:"Low",
-    department:"Road Problem",
-    issueDate:"04/05/2022",
-    completionDate:"13/05/2022",
-    comment:""
-}
-const item3={
-    id:v4(),
-    title:"Garbage Problem in Vimannagar",
-    priority:"High",
-    department:"Garbage Problem",
-    issueDate:"14/03/2022",
-    completionDate:"15/03/2022",
-    comment:""
-}
-const item4={
-    id:v4(),
-    title:"Power Outage since 2 hours",
-    priority:"Medium",
-    department:"Electricity Problem",
-    issueDate:"12/07/2022",
-    completionDate:"15/07/2022",
-    comment:""
-}
-
+const axios = require('axios')
 
 export default function WorkerDashBody(){
 
+    const [toDoData, setToDoData] = useState([])
+    const [inProgressData, setInProgressData] = useState([])
+    const [doneData, setDoneData] = useState([])
+    const [loading, setLoading] = useState(true)
     const [isDragging, setIsDragging] = useState(false)
     const [dragId, setDragId] = useState('')
+
     const [state, setState] = useState({
         toDo:{
             title:"To Do",
-            items:[item1, item2]
+            items:[]
         },
         inProgress:{
             title:"In Progress",
-            items:[item3]
+            items:[]
         },
         done:{
             title:"Done",
-            items:[item4]
+            items:[]
         }
     })
 
+    const getAllData = async()=>{
+        await axios.get('/complaint/getallcomplaints').then((response)=>{
+            setLoading(true)
+
+            response.data?.map((data)=>{
+                if(data.complaint_status === 'Pending'){
+                    setToDoData(toDoData =>[...toDoData, data])
+                }
+                else if(data.complaint_status === 'Resolved'){
+                    setDoneData(doneData =>[...doneData, data])
+                }
+                else if(data.complaint_status === 'Working'){
+                    setInProgressData(inProgressData =>[...inProgressData, data])
+                }
+            })
+
+            setState(state=>({...state, toDo:{title:'To Do', items:toDoData}}))
+            setState(state=>({...state, inProgress:{title:'In Progress', items:inProgressData}}))
+            setState(state=>({...state, done:{title:'Done', items:doneData}}))
+
+            setLoading(false)
+            if(loading === false){
+                console.log(state)
+            }
+
+        }).catch((err)=>{
+            console.log(err)
+        }) 
+    }
+   
+    useEffect(()=>{
+        getAllData()
+    }, [loading])
+
+    useEffect(()=>{
+        if(state.toDo.items.length === 0 && state.done.items.length === 0 && state.inProgress.items.length === 0){
+            setLoading(true)
+        }
+        else{
+            setLoading(false)
+        }
+    }, [])
+
+    
 
     function handleOnDragEnd({destination, source}) {
         setIsDragging(false)
-        
-
-        if(!destination)
-        {
+        if(!destination){
             return
         }
-        if(destination.index === source.index && destination.droppableId === source.droppableId)
-        {
+        if(destination.index === source.index && destination.droppableId === source.droppableId){
             return
         }
         const itemCopy = {...state[source.droppableId].items[source.index]}
@@ -82,12 +89,58 @@ export default function WorkerDashBody(){
 
             return prev
         })
+
+        var newDate = new Date()
+        var year = newDate.getFullYear()
+        var month = newDate.getMonth()
+        var date = newDate.getDate()
+        var hours = newDate.getHours()
+        var minutes = newDate.getMinutes()
+        var seconds = newDate.getSeconds()
+
+        var comment_time = ""
+
+        comment_time += year + "-" + (month<10?"0":"")+ month + (date<10?"0":"") + "-"+date + " "
+        comment_time += (hours<10 ? "0":"") + hours + ":"
+        comment_time += (minutes<10 ? "0":"") + minutes + ":"
+        comment_time += (seconds<10 ? "0":"")+seconds
+
+        if(destination.droppableId === 'toDo'){
+            updateComplaintStatus({id:dragId, status:'Pending', empId:404, commentTime:comment_time})
+        }
+        else if(destination.droppableId === 'inProgress'){
+            updateComplaintStatus({id:dragId, status:'Working', empId:404, commentTime:comment_time})
+        }
+        else if(destination.droppableId === 'done'){
+            updateComplaintStatus({id:dragId, status:'Resolved', empId:404, commentTime:comment_time})
+        }
+      }
+
+
+      const updateComplaintStatus = async(data)=>{
+        try{
+            const res = await axios.post('/complaint/updatecomplaint', 
+            data  
+            )
+            console.log(res)
+            if(res.status === 200 && res.data.value.updated === true && res.data.value2.commentCreated === true){
+                setDoneData([])
+                setInProgressData([])
+                setToDoData([])
+                setLoading(true)
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
       }
 
       function handleOnDragStart(e)
       {
         setIsDragging(true)
         setDragId(e.draggableId)
+
+        console.log(e)
       }
 
     return(
@@ -96,10 +149,10 @@ export default function WorkerDashBody(){
                 <div className="flex flex-row items-center justify-center gap-4 bg-[#303030] py-2 w-11/12 mx-auto rounded-xl">
                     <h1 className="font-[Poppins] text-white font-semibold text-lg">Employee Dashboard</h1>
                 </div>
-                <div className="flex flex-row items-start justify-between mt-4 w-11/12 mx-auto">
+                {!loading && <div className="flex flex-row items-start justify-between mt-4 w-11/12 mx-auto">
             
                     <DragDropContext onDragEnd={handleOnDragEnd} onDragStart={handleOnDragStart}>
-                        {_.map(state, (data, key)=>{
+                        {_?.map(state, (data, key)=>{
                             return(
                                 
                                     <div className={`flex flex-col items-start justify-center w-1/4 px-6 ${isDragging ? "border-[0.5px] border-white border-dashed rounded-xl":"border-0"}`}>
@@ -109,9 +162,9 @@ export default function WorkerDashBody(){
                                             {(provided)=>{
                                                 return(
                                                     <div {...provided.droppableProps} ref={provided.innerRef} className="w-full">
-                                                        {data.items.map((el, index)=>{
+                                                        {data?.items?.map((el, index)=>{
                                                             return(
-                                                                <Draggable key={el.id} index={index} draggableId={el.id}>
+                                                                <Draggable key={el.complaint_number.toString()} index={index} draggableId={el.complaint_number.toString()}>
                                                                     {(provided)=>{
                                                                         return(
                                                                             <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef} className={`py-2`}>
@@ -131,7 +184,7 @@ export default function WorkerDashBody(){
                         })}
                     </DragDropContext>
 
-                </div>
+                </div>}
             </div>
         </div>
     )

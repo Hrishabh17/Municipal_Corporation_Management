@@ -6,38 +6,44 @@ const registerComplaints = async(data) =>{
         length: 5,
         useLetters: false
       });
-    
-    let date_ob = new Date();
-    // current date
-    // adjust 0 before single digit date
-    let day = ("0" + date_ob.getDate()).slice(-2);
-    // current month
-    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-    // current year
-    let year = date_ob.getFullYear();
-    // current hours
-    let hours = date_ob.getHours();
-    // current minutes
-    let minutes = date_ob.getMinutes();
-    // current seconds
-    let seconds = date_ob.getSeconds();
 
-    const inDate = `${year}-${month}-${day}`
-    const time = `${hours}:${minutes}:${seconds}`
 
+    var newDate = new Date()
+    var year = newDate.getFullYear()
+    var month = newDate.getMonth()
+    var date = newDate.getDate()
+    var hours = newDate.getHours()
+    var minutes = newDate.getMinutes()
+    var seconds = newDate.getSeconds()
+
+    var comment_time = ""
+    var comment_date = ""
+
+    comment_date += year + "-" + (month<10?"0":"")+ month + (date<10?"0":"") + "-"+date + ""
+    comment_time += (hours<10 ? "0":"") + hours + ":"
+    comment_time += (minutes<10 ? "0":"") + minutes + ":"
+    comment_time += (seconds<10 ? "0":"")+seconds
+    const query2 = `Insert into comments values("Complaint created", "${comment_date} ${comment_time}", ${id}, ${null})`
 
     const value = await new Promise((resolve, reject)=>{
         const query = `Insert into complaint values(${id}, ${data.user}, "${data.description}", "${data.problemImage}", 
-                        "Pending", "${data.location}", ${null}, ${null}, "${time}", "${inDate}", ${null}, ${null}, "${data.department}",
+                        "Pending", "${data.location}", ${null}, ${null}, "${comment_time}", "${comment_date}", ${null}, ${null}, "${data.department}",
                         ${null})`
+
                         
         con.query(query, (err, res, fields)=>{
             if(err) reject(err);
-            const registrationTime = `${inDate} ${time}`
-            resolve({complaintId:id, registrationTime:registrationTime, location:data.location, description:data.description})
+            resolve({complaintId:id, registrationTime:`${comment_date} ${comment_time}`, location:data.location, description:data.description})
         })
     })
-    return value;
+
+    const value2 = await new Promise((resolve, reject)=>{
+        con.query(query2, (err, res, fields)=>{
+            if(err) reject(err);
+            resolve({commentCreated:true})
+        })
+    })
+    return {value, value2};
 }
 
 const complaintData = async()=>{
@@ -103,12 +109,41 @@ const fetchAllData=async()=>{
 
 const updatecomplaint=async(data)=>{
     const query = `update complaint set complaint_status="${data.status}" where complaint_number = ${data.id}`
+    const query2 = `Insert into comments values("Complaint moved to the ${data.status} section", "${data.commentTime}", ${data.id}, ${data.empId})`
+
     const value = await new Promise((resolve, reject)=>{
         con.query(query, (err, res, fields) => {
             if (err)
                 reject(err);
             else{
                 resolve({updated:true})
+            }
+        })
+    })
+    const value2 = await new Promise((resolve, reject)=>{
+        con.query(query2, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve({commentCreated:true})
+            }
+        })
+    })
+
+    console.log(value)
+    return {value, value2}
+
+}
+
+const addComment=async(data)=>{
+    const query = `Insert into comments values("${data.comment}", "${data.commentTime}", ${data.id}, ${data.empId})`
+    console.log(query)
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve({commentCreated:true})
             }
         })
     })
@@ -123,5 +158,6 @@ module.exports = {
     complaintData,
     searchData,
     fetchAllData,
-    updatecomplaint
+    updatecomplaint,
+    addComment
 }

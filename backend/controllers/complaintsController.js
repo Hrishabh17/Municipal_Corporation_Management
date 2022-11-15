@@ -26,10 +26,16 @@ const updatecomplaint = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const addComment = (req, res)=>{
+    const data =  complaintsModel.addComment(req.body)
+    data.then((response)=>res.json(response))
+}
+
 module.exports = {
     registerComplaint,
     complaintData,
     searchData,
     fetchAllData,
-    updatecomplaint
+    updatecomplaint,
+    addComment
 }
