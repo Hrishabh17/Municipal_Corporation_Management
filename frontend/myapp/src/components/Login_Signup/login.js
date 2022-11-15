@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context'
-
+import toast, { Toaster } from 'react-hot-toast';
 const axios = require('axios')
 
 export default function Login()
@@ -18,16 +18,20 @@ export default function Login()
           )
           .then(function (response) {
             if(response.status === 200 && response.data.exists === 1){
-                setValue({exists:true, user:'Hrishabh'})
-                alert('Login Successful')
-                navigate('/')
+                setValue({exists:true, user:response.data.user_name, user_id:response.data.user_id})
+                toast.success("Successfully Logged In")
+                setTimeout(()=>{
+                    navigate('/')
+                }, 1000)
+            }
+            else{
+                toast.error("Username or Password Error!!")
             }
           })
           .catch(function (error) {
             console.log(error);
           });
     }
-
 
     const handleChange = (e)=>{
         const { name, value } = e.target
@@ -42,6 +46,7 @@ export default function Login()
     
     return(
         <div className="w-full h-[100vh] bg-[#171717] py-2">
+            <Toaster/>
             <div className="container mx-auto">
                 <div className="flex flex-col items-center justify-center mt-16 w-1/3 mx-auto p-4 gap-8 rounded-xl bg-[#303030]">
                     

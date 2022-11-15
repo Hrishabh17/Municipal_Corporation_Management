@@ -28,4 +28,9 @@ router.route('/updatecomplaint')
 .post(complaintController.updatecomplaint)
 .put(complaintController.updatecomplaint)
 
+router.route('/addcomment')
+.get(complaintController.addComment)
+.post(complaintController.addComment)
+.put(complaintController.addComment)
+
 module.exports = router

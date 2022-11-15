@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiUpload } from "react-icons/fi"
+import toast, {Toaster} from 'react-hot-toast'
 const axios = require('axios')
 
 export default function CitizenSignup()
@@ -23,7 +24,11 @@ export default function CitizenSignup()
           )
           .then(function (response) {
             if(response.status === 200){
-                navigate('/login')
+
+                toast.success('Successfully Signed Up!!')
+                setTimeout(()=>{
+                    navigate('/login')
+                }, 1000)
             }
           })
           .catch(function (error) {
@@ -99,6 +104,7 @@ export default function CitizenSignup()
 
     return(
         <div className="w-full h-max bg-[#171717] py-2">
+            <Toaster/>
             <div className="container mx-auto">
                 <div className="flex flex-col items-center justify-center mt-4 w-1/3 mx-auto p-4 gap-6 rounded-xl bg-[#303030]">
                     
