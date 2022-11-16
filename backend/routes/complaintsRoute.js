@@ -33,4 +33,14 @@ router.route('/addcomment')
 .post(complaintController.addComment)
 .put(complaintController.addComment)
 
+router.route('/getcomplainttimeline')
+.get(complaintController.getcomplainttimeline)
+.post(complaintController.getcomplainttimeline)
+.put(complaintController.getcomplainttimeline)
+
+router.route('/fetchusercomplaints')
+.get(complaintController.fetchUserComplaints)
+.post(complaintController.fetchUserComplaints)
+.put(complaintController.fetchUserComplaints)
+
 module.exports = router

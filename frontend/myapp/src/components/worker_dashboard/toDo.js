@@ -77,8 +77,7 @@ export default function ToDo(props)
                     <h1 className="text-white font-[Poppins] text-sm line-clamp-1 text-start">{props.description.complaint_type}</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
-                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#c87070]">{props.description.complaint_status}</h1>
-                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#697d36]">{props.description.complaint_description}</h1>
+                    <h1 className="text-white font-[Poppins] text-start text-xs py-1 px-2 rounded-xl bg-[#697d36]">{props.description.complaint_description}</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#85462d]">{props.description.registration_date.slice(0,10)}</h1>
@@ -86,6 +85,7 @@ export default function ToDo(props)
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#0a5d83]">CUId: {props.description.complaint_number}</h1>
+                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#c87070]">{props.description.complaint_status}</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <input type="text" name="comment" value={form.comment} onChange={handleChange} onKeyDown={submitData} placeholder="Write a Note" className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585] outline-none"></input>
