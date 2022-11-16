@@ -31,11 +31,25 @@ const addComment = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const getcomplainttimeline = (req, res)=>{
+    const data =  complaintsModel.getcomplainttimeline(req.body)
+    data.then((response)=>res.json(response))
+}
+
+const fetchUserComplaints = (req, res)=>{
+    const data =  complaintsModel.fetchUserComplaints(req.body)
+    data.then((response)=>res.json(response))
+}
+
+
+
 module.exports = {
     registerComplaint,
     complaintData,
     searchData,
     fetchAllData,
     updatecomplaint,
-    addComment
+    addComment,
+    getcomplainttimeline,
+    fetchUserComplaints
 }

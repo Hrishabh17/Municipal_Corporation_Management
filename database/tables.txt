@@ -6,14 +6,10 @@ create table if not exists users(user_number bigint not null,user_name varchar(5
 
 create table if not exists complaint(complaint_number bigint not null, user_id bigint not null, complaint_description varchar(150) ,complaint_photo varchar(150),complaint_status varchar(30) ,complaint_address varchar(150),completion_photo varchar(150),priority char(25),registered_time time,registration_date date,completion_time time,completion_date date,complaint_type varchar(150),estimated_time bigint,primary key(complaint_number), foreign key(user_id)references users(user_number));
 
-create table if not exists employee(ssn bigint not null,employee_name char(30) not null,designation char(30), employee_address varchar(150),primary key(ssn));
-
-create table if not exists registers(registered_Status char(20),complaint_number bigint not null,user_number bigint not null,foreign key(complaint_number) references complaint(complaint_number),foreign key(user_number) references users(user_number));
+create table if not exists employee(ssn bigint not null,employee_name char(30) not null,passcode varchar(16),designation char(30) ,employee_address varchar(150),ward int,primary key(ssn));
 
 create table if not exists department(department_number int not null,department_name char(20),ssn bigint not null,foreign key(ssn) references employee(ssn),primary key(department_name));
 
-create table if not exists worker(worker_id bigint not null,worker_name char(30),worker_start_time datetime,worker_end_time datetime,no_of_tasks_assigned mediumint,primary key(worker_id));
-
 create table if not exists comments(comment_description varchar(250),comment_time datetime,complaint_number bigint,ssn bigint,foreign key(complaint_number) references complaint(complaint_number),foreign key(ssn) references employee(ssn));
 
-insert into employee values(404, "Sarvesh", "worker", "Kothrud");
+insert into employee values(404, "Sarvesh", "Sarvesh@24", "worker", "Kothrud", 2);

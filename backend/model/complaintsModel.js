@@ -47,8 +47,9 @@ const registerComplaints = async(data) =>{
 }
 
 const complaintData = async()=>{
-    const query1 = 'select count(complaint_number) as count from complaint where(complaint_status = "Pending")'
+    // const query1 = 'select count(complaint_number) as count from complaint where(complaint_status = "Pending")'
     const query2 = 'select count(complaint_number) as count from complaint where(complaint_status = "Resolved")'
+    const query1 = 'select count(complaint_number) as count from complaint'
 
     const pending_val = await new Promise((resolve, reject)=>{
         con.query(query1, (err, res, fields) => {
@@ -70,9 +71,9 @@ const complaintData = async()=>{
         })
     })
 
-    return([{total: pending_val[0].count + resolved_val[0].count,
+    return([{total: pending_val[0].count,
             resolved:resolved_val[0].count,
-            pending:pending_val[0].count}])
+            pending:pending_val[0].count - resolved_val[0].count}])
 }
 
 const searchData = async(data)=>{
@@ -153,11 +154,47 @@ const addComment=async(data)=>{
 
 }
 
+const getcomplainttimeline = async(data)=>{
+    console.log(data)
+    const query = `select comment_description, comment_time from comments where (complaint_number = ${data.id}) order by comment_time DESC`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields)=>{
+            if(err){
+                reject(err)
+            }
+            else{
+                resolve(res)
+            }
+        })
+    })
+    console.log(value)
+    return value
+}
+
+const fetchUserComplaints=async(data)=>{
+    const query = `select complaint_status, complaint_type, registration_date, complaint_address, complaint_number from complaint where (user_id=${data.id}) order by registration_date DESC`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    console.log(value)
+    return value
+
+}
+
 module.exports = {
     registerComplaints, 
     complaintData,
     searchData,
     fetchAllData,
     updatecomplaint,
-    addComment
+    addComment,
+    getcomplainttimeline,
+    fetchUserComplaints
 }

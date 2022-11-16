@@ -14,7 +14,7 @@ export default function SuccessMsg(){
                         </div>
                         <div className="flex flex-row items-center justify-center w-10/12 border-b-2 border-b-orange-200">
                             <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2">Registration Time</h1>
-                            <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2">{location.state.complaintInfo.registrationTime}</h1>
+                            <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2">{location.state.complaintInfo.registrationTime.slice(0,10)} {location.state.complaintInfo.registrationTime.slice(11, 19)}</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center w-10/12 border-b-2 border-b-orange-200 h-max">
                             <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2">Location</h1>

@@ -1,27 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function Timeline(){
+export default function Timeline(props){
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState([])
+
+  useEffect(()=>{
+
+    if(props.data.length === 0){
+      console.log('zero')
+      setLoading(true)
+    }
+    else{
+      if(data.length===0){
+        setData(props.data)
+        setLoading(true)
+      }
+      else{
+        console.log("data- ", data)
+        setLoading(false)
+      }
+    }
+  }, [props, data])
+
+  if(loading){
+    return <div className='text-white text-xl'>Loading</div>
+  }
+
+
   return(
     <div className="container mx-auto w-4/5 text-start py-4 z-5">
-      <ol class="relative border-l border-[#ff6262]">                  
-        <li class="mb-10 ml-4">
-            <div class="absolute w-3 h-3 bg-[#f4fa40] rounded-full mt-1.5 -left-1.5 border border-white"></div>
-            <time class="mb-1 py-1 font-[Poppins] text-sm font-medium leading-none text-white ">17 February 2022</time>
-            <h3 class="text-lg font-[Poppins] font-medium text-white">Complaint Resolved</h3>
-            <p class="mb-4 text-base font-[Poppins] font-normal text-gray-300">Get access to over 20+ pages including a dashboard layout, charts, kanban board, calendar, and pre-order E-commerce &amp; Marketing pages.</p>
+      <ol className="relative border-l border-[#ff6262]">   
+      {!loading && 
+        data?.map((items, index)=>
+          <li className="mb-10 ml-4" key={index}>
+            <div className="absolute w-3 h-3 bg-[#f4fa40] rounded-full mt-1.5 -left-1.5 border border-white"></div>
+            <time className="mb-1 py-1 font-[Poppins] text-base font-medium leading-none text-white ">{items.comment_time.slice(0,10)} {items.comment_time.slice(11,19)}</time>
+            <p className="mb-4 text-md font-[Poppins] font-normal text-gray-300">{items.comment_description}</p>
         </li>
-        <li class="mb-10 ml-4">
-            <div class="absolute w-3 h-3 bg-[#f4fa40] rounded-full mt-1.5 -left-1.5 border border-white"></div>
-            <time class="mb-1 py-1 font-[Poppins] text-sm font-medium leading-none text-white ">15 February 2022</time>
-            <h3 class="text-lg font-[Poppins] font-medium text-white">Workers working to solve the issue</h3>
-            <p class="mb-4 text-base font-[Poppins] font-normal text-gray-300">Get access to over 20+ pages including a dashboard layout, charts, kanban board, calendar, and pre-order E-commerce &amp; Marketing pages.</p>
-        </li>
-        <li class="mb-10 ml-4">
-            <div class="absolute w-3 h-3 bg-[#f4fa40] rounded-full mt-1.5 -left-1.5 border border-white"></div>
-            <time class="mb-1 py-1 font-[Poppins] text-sm font-medium leading-none text-white ">14 February 2022</time>
-            <h3 class="text-lg font-[Poppins] font-medium text-white">Complaint Ticket created for grabage issue</h3>
-            <p class="mb-4 text-base font-[Poppins] font-normal text-gray-300">Get access to over 20+ pages including a dashboard layout, charts, kanban board, calendar, and pre-order E-commerce &amp; Marketing pages.</p>
-        </li>
+        )
+      }
       </ol>
     </div>
   )
