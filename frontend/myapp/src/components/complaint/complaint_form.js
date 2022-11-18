@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FiUpload } from "react-icons/fi"
 import { UserContext } from '../context'
+import toast, {Toaster} from 'react-hot-toast'
 const axios = require('axios')
 
 export default function Complaint()
@@ -13,6 +14,12 @@ export default function Complaint()
     useEffect(()=>{
         if(value.exists === false){
             navigate('/login')
+        }
+        if(value.exists===true && value.type==='emp'){
+            toast.error('Please login as user to continue with complaint registration')
+            setTimeout(()=>{
+                navigate('/')
+            }, 1000)
         }
     }, [])
 
@@ -80,8 +87,11 @@ export default function Complaint()
         }
     }
 
+    
+
     return(
         <div className="w-full h-max bg-[#171717] py-2 mt-[70px]">
+            <Toaster/>
             <div className="container mx-auto mb-4">
                 <div className="flex flex-col items-center justify-center mt-4 w-3/5 mx-auto p-4 gap-6 rounded-xl bg-[#303030]">
                     
@@ -133,7 +143,7 @@ export default function Complaint()
                     <div className="w-full items-center justify-center">
                         <div className='w-4/5 mx-auto py-2 mb-4 bg-gray-100 rounded-md'>
                             <div className='flex flex-row justify-center items-center w-3/5 h-[250px] my-2 mx-auto overflow-hidden rounded-xl'>
-                                <img src={image.userProfileImage} alt="Uploaded Profile" className="rounded-full border-2 border-white"></img>
+                                <img src={image.userProfileImage} alt="Uploaded Profile" className="rounded-lg border-2 border-white"></img>
                             </div>
                         </div>
                         <div onClick={onBtnClick} className={`cursor-pointer flex flex-row justify-center mx-0 xl:mx-auto items-center rounded-3xl shadow-3xl shadow-gray-900  w-2/5 px-0 py-2 gap-4 bg-white text-blue-900 hover:bg-red-200 hover:text-black`}>

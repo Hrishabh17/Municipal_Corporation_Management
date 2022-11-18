@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import header_user from '../../../src/images/header_user.jpg'
 import { UserContext } from "../context";
-
+import { Buffer } from "buffer";
 
 export default function Header()
 {
@@ -14,9 +14,39 @@ export default function Header()
     {name:"Contact",link:"/contact"},
   ];
 
+  const [profileImage, setProfileImage] = useState(header_user)
+
   const navigate = useNavigate()
 
   const {value, setValue} = useContext(UserContext)
+  var dropdownLinks = [{name:'Log In', link:'/login'}]
+
+  useState(()=>{
+    if(value.exists===true && value.type==='user'){
+      setProfileImage(Buffer.from(value.profile_image).toString())
+    }
+  
+  }, [])
+
+  console.log(profileImage)
+  
+  if(value.exists===false){
+    dropdownLinks = [
+      {name:'LogIn', link:'/login'}
+    ]
+  }
+  else if(value.exists === true && value.type==='user'){
+    dropdownLinks = [
+      {name:'My Complaints', link:'/usercomplaints'},
+      {name:'Logout', link:'/'}
+    ]
+  }
+  else if(value.exists === true && value.type==='emp'){
+    dropdownLinks = [
+      {name:'My Dashboard', link:'/empdash'},
+      {name:'Logout', link:'/'}
+    ]
+  }
 
   const [dropdown, setDropdown] = useState(false)
   const dropdownRef = useRef()
@@ -54,7 +84,7 @@ export default function Header()
             <div ref={dropdownRef}>
               <div>
                 <div className="flex flex-row justify-center items-center gap-2 relative" onClick={() => setDropdown(dropdown => !dropdown)}>
-                  <img src={header_user} alt='user_pic' className="h-10 w-10 rounded-full"></img>
+                  <img src={profileImage} alt='user_pic' className="h-10 w-10 rounded-full"></img>
                   
                     {!dropdown && <BiDownArrow className="text-white"/>}
                     {dropdown && <BiUpArrow className="text-white"/>}
@@ -63,10 +93,12 @@ export default function Header()
                 {
                   dropdown && 
                   <div className="flex flex-col justify-center items-center absolute text-white text-center px-4 hover:px-0 w-[200px] bg-gray-700 text-md rounded-md list-none gap-2">
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{navigate('/settings')}}>Settings</li>
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{navigate('/usercomplaints')}}>Complaints</li>
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{navigate('/empdash')}}>Dashboard</li>
-                      <li className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" onClick={()=>{setValue({exists:false}); navigate('/')}}>Logout</li>
+                      {
+                        dropdownLinks.map((data, index)=>
+                          <li key={index} className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" 
+                          onClick={data.name==='Logout'?()=>{setValue({exits:false}); setProfileImage(header_user); setDropdown(false); navigate('/')}:()=>{navigate(data.link)}}>{data.name}</li>
+                        )
+                      }
                   </div>
                 }
               </div>
