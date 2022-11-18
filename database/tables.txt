@@ -4,7 +4,7 @@ use dbms;
 
 create table if not exists users(user_number bigint not null,user_name varchar(50),phone_number bigint,passcode varchar(16) not null,user_address varchar(150),primary key(user_number));
 
-create table if not exists complaint(complaint_number bigint not null, user_id bigint not null, complaint_description varchar(150) ,complaint_photo varchar(150),complaint_status varchar(30) ,complaint_address varchar(150),completion_photo varchar(150),priority char(25),registered_time time,registration_date date,completion_time time,completion_date date,complaint_type varchar(150),estimated_time bigint,primary key(complaint_number), foreign key(user_id)references users(user_number));
+create table if not exists complaint(complaint_number bigint not null, user_id bigint not null, complaint_description varchar(150) ,complaint_photo varchar(150),complaint_status varchar(30) ,complaint_address varchar(150),completion_photo varchar(150),priority varchar(25),registered_time time,registration_date date,completion_time time,completion_date date,complaint_type varchar(150),estimated_time bigint,primary key(complaint_number), foreign key(user_id)references users(user_number));
 
 create table if not exists employee(ssn bigint not null,employee_name char(30) not null,passcode varchar(16),designation char(30) ,employee_address varchar(150),ward int,primary key(ssn));
 

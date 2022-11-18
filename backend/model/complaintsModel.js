@@ -26,14 +26,14 @@ const registerComplaints = async(data) =>{
     const query2 = `Insert into comments values("Complaint created", "${comment_date} ${comment_time}", ${id}, ${null})`
 
     const value = await new Promise((resolve, reject)=>{
-        const query = `Insert into complaint values(${id}, ${data.user}, "${data.description}", "${data.problemImage}", 
-                        "Pending", "${data.location}", ${null}, ${null}, "${comment_time}", "${comment_date}", ${null}, ${null}, "${data.department}",
+        const query = `Insert into complaint values(${id}, ${data.user}, ${data.ward}, "${data.description}", "${data.problemImage}", 
+                        "Pending", "${data.location}", ${null}, "${comment_time}", "${comment_date}", ${null}, ${null}, "${data.department}",
                         ${null})`
 
                         
         con.query(query, (err, res, fields)=>{
             if(err) reject(err);
-            resolve({complaintId:id, registrationTime:`${comment_date} ${comment_time}`, location:data.location, description:data.description})
+            resolve({complaintId:id, registrationTime:`${comment_date} ${comment_time}`, location:data.location, complaint_photo:data.problemImage, description:data.description})
         })
     })
 
@@ -88,6 +88,7 @@ const searchData = async(data)=>{
             }
         })
     })
+
     return {value: value}
 }
 
@@ -133,7 +134,6 @@ const updatecomplaint=async(data)=>{
 
     console.log(value)
     return {value, value2}
-
 }
 
 const addComment=async(data)=>{

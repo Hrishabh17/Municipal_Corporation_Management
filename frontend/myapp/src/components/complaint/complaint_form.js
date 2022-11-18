@@ -20,7 +20,7 @@ export default function Complaint()
         userProfileImage: "logo.png"
     }
     const [image, setImage] = useState(initialImage)
-    const initialForm = {department: '', description:'', location:'', problemImage: image.userProfileImage, user:value.user_id}
+    const initialForm = {department: '', description:'', location:'', problemImage: image.userProfileImage, user:value.user_id, ward:''}
     const [form, setForm] = useState(initialForm)
     const [check, setCheck] = useState(false)
     
@@ -46,6 +46,7 @@ export default function Complaint()
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setImage({ userProfileImage: reader.result })
+                setForm(form =>({...form, problemImage:reader.result}))
             }
         }
         reader.readAsDataURL(e.target.files[0])
@@ -74,6 +75,7 @@ export default function Complaint()
 
     const submitForm = ()=>{
         if(form.department!==''||form.description!==''||form.location!==''){
+            console.log(form)
             regComplaint()
         }
     }
@@ -111,6 +113,21 @@ export default function Complaint()
                         <textarea name='location' onChange={handleChange} value={form.location} placeholder="Location of Problem" rows="4" cols="50" 
                             className="w-full h-20 py-2 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
                         </textarea>
+                    </div>
+
+                    <div className='flex flex-row items-center justify-center w-4/5'>
+                        <select name='ward'onChange={handleChange} value={form.ward} className="w-full h-10 py-2 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
+                            <option value="chooseVal">-- Select Ward  --</option>
+                            <option value="25111">Hadapsar-Mundhwa</option>
+                            <option value="35111">Sinhgad</option>
+                            <option value="55111">Kondhwa</option>
+                            <option value="25666">Kothrud-Bawdhan</option>
+                            <option value="12554">Warje-Karvenagar</option>
+                            <option value="98986">Shivajinagar</option>
+                            <option value="14563">Wanawadi-Ramtekadi</option>
+                            <option value="25896">Dhankawadi-Sahakar Nagar</option>
+                            <option value="35795">Bibwewadi</option>
+                        </select>
                     </div>
 
                     <div className="w-full items-center justify-center">
