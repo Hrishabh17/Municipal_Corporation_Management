@@ -42,7 +42,7 @@ export default function CitizenSignup()
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setImage(image =>({...image, userProfileImage: reader.result }))
-                setForm(form =>({...form, profileImage:image.reader.result}))
+                setForm(form =>({...form, profileImage:reader.result}))
                 console.log(image)
             }
         }

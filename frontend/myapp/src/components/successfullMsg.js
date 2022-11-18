@@ -26,7 +26,8 @@ export default function SuccessMsg(){
                             <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2">Problem Description</h1>
                             <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2 overflow-hidden">{location.state.complaintInfo.description}</h1>
                         </div>
-                        <div className="flex flex-row items-center justify-center w-10/12 border-b-2 border-b-orange-200 h-max pb-2">
+                        <div className="flex flex-row items-center justify-center w-10/12 border-b-2 border-b-orange-200 h-max pb-4">
+                        <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2">Problem Image</h1>
                             <img src={location.state.complaintInfo.complaint_photo} alt="Uploaded Profile" width={"350px"} className="border-2 border-white"></img>
                         </div>
                     </div>
