@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useLocation} from 'react-router-dom';
+import {Buffer} from 'buffer'
 
 export default function ComplaintDetail(){
+
     const location = useLocation();
-
-    // console.log(location.state[0])
-
+    const image = Buffer.from(location.state[0].complaint_photo).toString()
     const regDate = location.state[0].registration_date.slice(0, 10)
 
     return(
@@ -28,6 +28,9 @@ export default function ComplaintDetail(){
                         <div className="flex flex-row items-center justify-center w-10/12 border-b-2 border-b-orange-200 h-max">
                             <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2">Problem Description</h1>
                             <h1 className="font-[Poppins] text-lg text-white py-4 w-1/2 overflow-hidden">{location.state[0].complaint_description}</h1>
+                        </div>
+                        <div className="flex flex-row items-center justify-center w-10/12 border-b-2 border-b-orange-200 h-max pb-2">
+                            <img src={image} alt="Uploaded Profile" width={"350px"} className="border-2 border-white"></img>
                         </div>
                     </div>
                 </div>

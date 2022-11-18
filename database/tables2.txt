@@ -1,0 +1,23 @@
+create database if not exists dbms;
+
+use dbms;
+
+create table if not exists users(user_number bigint not null,user_name varchar(50),phone_number bigint,passcode varchar(16) not null,user_address varchar(150),primary key(user_number));
+
+create table if not exists ward(ward_number int,ward_name varchar(40),primary key(ward_number));
+
+create table if not exists employee(ssn bigint not null,ward_number int,employee_name varchar(30) not null,designation varchar(30), employee_address varchar(150), passcode varchar(16) not null, primary key(ssn),foreign key(ward_number) references ward(ward_number));
+
+create table if not exists complaint(complaint_number bigint not null, user_id bigint not null,ward_number int, complaint_description varchar(150) ,complaint_photo longblob,complaint_status varchar(30) ,complaint_address varchar(150),priority char(25),registered_time time,registration_date date,completion_time time,completion_date date,complaint_type varchar(150),estimated_time bigint,primary key(complaint_number),foreign key(ward_number) references ward(ward_number),foreign key(user_id)references users(user_number));
+
+create table if not exists department(department_number int not null,department_name varchar(40),mgr_ssn bigint,foreign key(mgr_ssn) references employee(ssn),primary key(department_name));
+
+create table if not exists comments(comment_description varchar(250),comment_time datetime,complaint_number bigint,ssn bigint,foreign key(complaint_number) references complaint(complaint_number),foreign key(ssn) references employee(ssn));
+
+insert into ward values(25111,'Hadapsar-Mundhwa'),(35111,'Sinhgad'),(55111,'Kondhwa'),(99111,'Aundh-Baner'),(25666,'Kothrud-Bawdhan'),(12554,'Warje-Karvenagar'),(98986,'Shivajinagar'),(14563,'Wanawadi-Ramtekadi'),(25896,'Dhankawadi-Sahakar Nagar'),(35795,'Bibwewadi');
+
+insert into employee values(25896,25111,'Sandhya Gagre','corporator','erandwane', 'Sandhya@123'),(12563,35111,'Umesh Mali','corporator','shivajinagar','Umesh@123'),(99456,55111,'Nitin Udas','corporator','katraj', 'Nitin@123'),(12455,99111,'Sandip Kadam','corporator','kothrud','Sandip@123'),(35789,25666,'Jayant Bhosekar','corporator','karve nagar','Jayant@123'),(78546,12554,'Ganesh Sonuene','corporator','warje','Ganesh@123'),(85852,98986,'Ravi Pawar','corporator','kothrud','Ravi@123'),(14758,14563,'Sanjay Gawde','corporator','kothrud','Sanjay@123'),(65498,25896,'Yunus Pathan','corporator','baner','Yunus@123'),(10232,35795,'Avinash Sakpal','corporator','pimpri','Avinash@123');
+
+insert into department values(25,'Water Department',25896),(35,'Power Supply Department',12563),(55,'Road Management Department',99456),(99,'Garbage and Sewage Management Department',12455);
+
+insert into employee (ssn,employee_name,designation,employee_address,passcode) value(75369,'Rajesh Sharma','employee','rambaugh colony','Rajesh@123');

@@ -23,7 +23,7 @@ con.connect(function(err) {
     console.log("Connected Established!");
   });
 
-lineReader.eachLine('../database/tables.txt', (line, last) => {
+lineReader.eachLine('../database/tables2.txt', (line, last) => {
     if(line!==''){
         con.query(line, function(err, result){
             if(err){
@@ -32,11 +32,23 @@ lineReader.eachLine('../database/tables.txt', (line, last) => {
         })
     }
     if(last){
-        console.log('Database initialized successfully')
-        con.end(function(err) {
-            if (err) throw err;
-            console.log("Connected Closed!");
-          });
+
+        const query = 'create trigger insert_ward_number_if_corporator' + ' before insert on employee' + ' for each row' + ' begin' +
+        ' if new.designation!="corporator" then' + ' set new.ward_number=null;' + ' end if;' + ' end' 
+
+        con.query(query, function(err, result){
+            if(err){
+                throw err
+            }
+            else{
+                console.log('Trigger generated successfully')
+                console.log('Database initialized successfully')
+                con.end(function(err) {
+                    if (err) throw err;
+                    console.log("Connected Closed!");
+                });
+            }
+        })
     }
 });
 

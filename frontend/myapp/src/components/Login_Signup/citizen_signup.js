@@ -41,8 +41,9 @@ export default function CitizenSignup()
         const reader = new FileReader()
         reader.onload = () => {
             if (reader.readyState === 2) {
-                setImage({ userProfileImage: reader.result })
-                console.log()
+                setImage(image =>({...image, userProfileImage: reader.result }))
+                setForm(form =>({...form, profileImage:image.reader.result}))
+                console.log(image)
             }
         }
         reader.readAsDataURL(e.target.files[0])

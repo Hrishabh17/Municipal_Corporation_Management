@@ -106,13 +106,13 @@ export default function WorkerDashBody(){
         comment_time += (seconds<10 ? "0":"")+seconds
 
         if(destination.droppableId === 'toDo'){
-            updateComplaintStatus({id:dragId, status:'Pending', empId:404, commentTime:comment_time})
+            updateComplaintStatus({id:dragId, status:'Pending', empId:75369, commentTime:comment_time})
         }
         else if(destination.droppableId === 'inProgress'){
-            updateComplaintStatus({id:dragId, status:'Working', empId:404, commentTime:comment_time})
+            updateComplaintStatus({id:dragId, status:'Working', empId:75369, commentTime:comment_time})
         }
         else if(destination.droppableId === 'done'){
-            updateComplaintStatus({id:dragId, status:'Resolved', empId:404, commentTime:comment_time})
+            updateComplaintStatus({id:dragId, status:'Resolved', empId:75369, commentTime:comment_time})
         }
       }
 
