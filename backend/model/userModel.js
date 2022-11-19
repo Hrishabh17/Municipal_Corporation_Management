@@ -19,7 +19,7 @@ const registerUser = async(data) =>{
 
 const auth = async(data) =>{
     const query =  `Select user_name, user_number, profile_image from users where(user_name = "${data.username}" and passcode = "${data.password}")`
-    const query2 = `Select ssn, employee_name, profile_image from employee where(employee_name = "${data.username}" and passcode = "${data.password}")`
+    const query2 = `Select ssn, employee_name, profile_image, designation from employee where(employee_name = "${data.username}" and passcode = "${data.password}")`
 
     const value = await new Promise((resolve, reject)=>{
         console.log('in user')
@@ -49,7 +49,7 @@ const auth = async(data) =>{
                 }
                 else{
                     console.log(res[0])
-                    resolve({exists:1, type:'emp', user:data.username, user_id:res[0].ssn, profile_image:res[0].profile_image})
+                    resolve({exists:1, type:res[0].designation, user:data.username, user_id:res[0].ssn, profile_image:res[0].profile_image})
                 }
             })
         })

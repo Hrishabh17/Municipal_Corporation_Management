@@ -25,7 +25,6 @@ export default function Header()
     if(value.exists===true && value.type==='user'){
       setProfileImage(Buffer.from(value.profile_image).toString())
     }
-  
   }, [])
 
   console.log(profileImage)
@@ -41,9 +40,15 @@ export default function Header()
       {name:'Logout', link:'/'}
     ]
   }
-  else if(value.exists === true && value.type==='emp'){
+  else if(value.exists === true && value.type==='employee'){
     dropdownLinks = [
       {name:'My Dashboard', link:'/empdash'},
+      {name:'Logout', link:'/'}
+    ]
+  }
+  else if(value.exists === true && value.type==='admin'){
+    dropdownLinks = [
+      {name:'Admin Dashboard', link:'/admindash'},
       {name:'Logout', link:'/'}
     ]
   }

@@ -21,3 +21,4 @@ insert into employee values(25896,25111,'Sandhya Gagre','corporator','erandwane'
 insert into department values(25,'Water Department',25896),(35,'Power Supply Department',12563),(55,'Road Management Department',99456),(99,'Garbage and Sewage Management Department',12455);
 
 insert into employee (ssn,employee_name,designation,employee_address,passcode) value(75369,'Rajesh Sharma','employee','rambaugh colony','Rajesh@123');
+insert into employee (ssn,employee_name,designation,employee_address,passcode) value(81249,'Aditya Verma','admin','viman nagar','Aditya@123');

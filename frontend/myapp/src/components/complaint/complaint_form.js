@@ -15,7 +15,7 @@ export default function Complaint()
         if(value.exists === false){
             navigate('/login')
         }
-        if(value.exists===true && value.type==='emp'){
+        if(value.exists===true && value.type==='employee'){
             toast.error('Please login as user to continue with complaint registration')
             setTimeout(()=>{
                 navigate('/')
