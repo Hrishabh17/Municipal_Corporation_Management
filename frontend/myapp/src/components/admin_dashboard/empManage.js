@@ -3,27 +3,15 @@ import React from "react";
 export default function Table() {
     return (
 
-<div className="w-full h-max bg-[#171717] py-2 mt-[70px] min-h-[700px]">
-    <br></br>
-    <div id="main" class="grid grid-cols-3 grid-flow-col"> 
-        <a href = "admindash" class="bg-[#4A88BA] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-            Task Assignment
-        </a>
-        <a href = "TabEmp" class="bg-[#4A88BA] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-            Employee Management
-        </a>
-        <a href = "TabUser" class="bg-[#4A88BA] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-            User Management
-        </a>
-    </div>
-    <br></br>
+<div className="w-full h-max bg-[#171717] py-2 ">
+    
 <div className="flex flex-row items-center justify-center gap-4 bg-[#303030] py-2 w-11/12 mx-auto rounded-xl">                
     <h1 className="font-[Poppins] text-white font-semibold text-lg">Employee Management</h1>
 </div>
 <br></br>
-{/* <div class="overflow-x-auto relative shadow-md sm:lg"> */}
-    <div class="pb-4 bg-white dark:bg-gray-900 overflow-x-auto">
-    {/* "-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto" */}
+
+    <div class="pb-4 bg-white dark:bg-[#171717]  overflow-x-auto">
+    
     <br></br>
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative mt-1">
@@ -339,17 +327,15 @@ export default function Table() {
                 </a>
             </li>
             <li>
-                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+            <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">1</a>
             </li>
             <li>
                 <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
             </li>
             <li>
-                <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+            <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">3</a>
             </li>
-            {/* <li>
-                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-            </li> */}
+           
             <li>
                 <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
             </li>
@@ -362,7 +348,7 @@ export default function Table() {
         </ul>
     </nav>
 </div>
-// </div>
+
 
     );
 }

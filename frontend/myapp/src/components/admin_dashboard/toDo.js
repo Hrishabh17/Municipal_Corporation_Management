@@ -3,6 +3,10 @@ import {MdCheckCircle} from "react-icons/md"
 import {CgSandClock} from "react-icons/cg"
 import {BsListTask} from "react-icons/bs"
 import {GiCrossMark} from "react-icons/gi"
+// import { DateInput, minValue } from 'react-admin';
+import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import Calender1 from "./calender";
+import Dropdown from "./dropdown";
 
 
 export default function ToDo(props)
@@ -22,11 +26,14 @@ export default function ToDo(props)
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#697d36]">{props.description.department}</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
-                    <h1 className="text-black font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#8FE3E6]">{props.description.emp}</h1>
+                    {/* <h1 className="text-black font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#8FE3E6]">{props.description.emp}</h1> */}
+                    <Dropdown>{props.description.emp}</Dropdown>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#85462d]">{props.description.issueDate}</h1>
-                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585]">{props.description.completionDate}</h1>
+                    {/* <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585]">{props.description.completionDate}</h1> */}
+                    <Calender1>{props.description.completionDate}</Calender1>
+                    
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <input type="text" placeholder="Write a Note" className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585] outline-none"></input>
