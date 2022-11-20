@@ -9,9 +9,9 @@ export default function WorkerSignup()
         employeeProfileImage: "logo.png"
     }
     const [image, setImage] = useState(initialImage)
-    const initialForm = {ssn:'', name:'', designation:'', address:'', contactNum: '', password: '', confirmPassword: '', ward: '', profileImage: image.employeeProfileImage}
+    const initialForm = {ssn:'', name:'', designation:'', address:'', contactNum: '', password: '', confirmPassword: '', department: '', profileImage: image.employeeProfileImage}
     const [form, setForm] = useState(initialForm)
-    const [valid, setValid] = useState({contact:true, password:true, confirmPassword:true, ssn:true, designation:true, ward:true})
+    const [valid, setValid] = useState({contact:true, password:true, confirmPassword:true, ssn:true, designation:true, department:true})
     const [message, setMessage] = useState({msg:''})
     const [submit, setSubmit] = useState(false)
     
@@ -67,17 +67,17 @@ export default function WorkerSignup()
             console.log('Valid Contact')
         }
         
-        if(form.ssn.length !== 10){
-            console.log(form.ssn, form.ssn.length)
-            setValid(valid => ({...valid, ssn:false}))
-            console.log('Invalid SSN')
-            setMessage(message => ({...message, msg:'Invalid SSN'}))
-            console.log(message)
-        }
-        else{
-            setValid(valid => ({...valid, ssn:true}))
-            console.log('Valid SSN')
-        }
+        // if(form.ssn.length !== 10){
+        //     console.log(form.ssn, form.ssn.length)
+        //     setValid(valid => ({...valid, ssn:false}))
+        //     console.log('Invalid SSN')
+        //     setMessage(message => ({...message, msg:'Invalid SSN'}))
+        //     console.log(message)
+        // }
+        // else{
+        //     setValid(valid => ({...valid, ssn:true}))
+        //     console.log('Valid SSN')
+        // }
 
         if(form.designation=="select")
         {
@@ -93,18 +93,18 @@ export default function WorkerSignup()
             console.log(form.designation)
         }
 
-        if(form.ward=="select")
+        if(form.department=="select")
         {
-            setValid(valid => ({...valid, ward:false}))
-            console.log('Please Select Ward')
-            setMessage(message => ({...message, msg:'Please Select Ward'}))
+            setValid(valid => ({...valid, department:false}))
+            console.log('Please Select department')
+            setMessage(message => ({...message, msg:'Please Select department'}))
             console.log(message)
         }
         else
         {
-            setValid(valid => ({...valid, ward:true}))
-            console.log('Valid Ward')
-            console.log(form.ward)
+            setValid(valid => ({...valid, department:true}))
+            console.log('Valid department')
+            console.log(form.department)
         }
 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,15}$/
@@ -125,7 +125,7 @@ export default function WorkerSignup()
             setValid(valid => ({...valid, password:true}))
         }
 
-        if(valid.confirmPassword && valid.contact && valid.password && valid.ssn && valid.designation && valid.ward){
+        if(valid.confirmPassword && valid.contact && valid.password && valid.designation){
             setMessage(message => ({...message, msg:""}))
             setSubmit(true)
             console.log('sending employee for signup')
@@ -133,7 +133,7 @@ export default function WorkerSignup()
 
         }
 
-        if(!valid.confirmPassword || !valid.contact || !valid.password || !valid.ssn || !valid.designation || !valid.ward){
+        if(!valid.confirmPassword || !valid.contact || !valid.password || !valid.designation ){
             setSubmit(false)
         }
     }
@@ -152,11 +152,11 @@ export default function WorkerSignup()
                     {!submit && <div className={` font-[Poppins] h-2 text-red-600 message`}>
                            {message.msg} 
                     </div>}
-                    <div className='flex flex-row items-center justify-center w-4/5'>
+                    {/* <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='ssn' onChange={handleChange} value={form.ssn} type="text" placeholder="SSN: XXXX-XX-XXXX" 
                             className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
                         </input>
-                    </div>
+                    </div> */}
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='name' onChange={handleChange} value={form.name} type="text" placeholder="Name" 
                             className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
@@ -166,10 +166,10 @@ export default function WorkerSignup()
                     <div className="relative w-full lg:max-w-sm">
                         <select name = "designation" onChange={handleChange} value={form.designation} className="block py-3 px-4 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected value="select" >Select Designation</option>
-                            <option value="city_engineer">City Engineer</option>
-                            <option value="chief_engineer">Chief Engineer</option>
-                            <option value="water_dept_engg">Water Dept. Engineer</option>
-                            <option value="fire_dept_engg">Fire Dept. Engineer</option>
+                            <option value="corporator">Corporator</option>
+                            <option value="employee">Employee</option>
+                            <option value="adming">Admin</option>
+                            <option value="mayor">Mayor</option>
                         </select>
                     </div>
                     </div>
@@ -183,7 +183,7 @@ export default function WorkerSignup()
                             className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.contact ? "border-[2px] border-white" : "border-[2px] border-red-700"}`}>
                         </input>
                     </div>
-                    <div className='flex flex-row items-center justify-center w-4/5'>
+                    {/* <div className='flex flex-row items-center justify-center w-4/5'>
                     <div className="relative w-full lg:max-w-sm">
                         <select name = "ward" onChange={handleChange} value={form.ward} className="block py-3 px-4 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected value = "select">Select Ward</option>
@@ -191,6 +191,17 @@ export default function WorkerSignup()
                             <option value="2">Kharadi Infotech Park	</option>
                             <option value="3">Vimannagar Sanjay Park	</option>
                             <option value="4">Nagpur Chawl	</option>
+                        </select>
+                    </div>
+                    </div> */}
+                    <div className='flex flex-row items-center justify-center w-4/5'>
+                    <div className="relative w-full lg:max-w-sm">
+                        <select name = "department" onChange={handleChange} value={form.department} className="block py-3 px-4 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected value = "select">Select Department</option>
+                            <option value="99">Garbage and Sewage Management Department 	</option>
+                            <option value="35">Power Supply Department	</option>
+                            <option value="55">Road Management Department	</option>
+                            <option value="25">Water Department	</option>
                         </select>
                     </div>
                     </div>
