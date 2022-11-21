@@ -9,7 +9,7 @@ export default function WorkerSignup()
         employeeProfileImage: "logo.png"
     }
     const [image, setImage] = useState(initialImage)
-    const initialForm = {ssn:'', name:'', designation:'', address:'', contactNum: '', password: '', confirmPassword: '', department: '', profileImage: image.employeeProfileImage}
+    const initialForm = {name:'', designation:'', address:'', contactNum: '', password: '', confirmPassword: '', department: '', profileImage: image.employeeProfileImage}
     const [form, setForm] = useState(initialForm)
     const [valid, setValid] = useState({contact:true, password:true, confirmPassword:true, ssn:true, designation:true, department:true})
     const [message, setMessage] = useState({msg:''})
@@ -19,12 +19,12 @@ export default function WorkerSignup()
     const navigate = useNavigate()
 
     async function regEmployee(){
-        await axios.post('/employee', 
+        await axios.post('/employee/register', 
           form  
           )
           .then(function (response) {
             if(response.status === 200){
-                navigate('/workerLogin')
+                navigate('/login')
             }
           })
           .catch(function (error) {
@@ -38,7 +38,7 @@ export default function WorkerSignup()
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setImage({ employeeProfileImage: reader.result })
-                console.log()
+                setForm(form =>({...form, profileImage:reader.result}))
             }
         }
         reader.readAsDataURL(e.target.files[0])
@@ -66,18 +66,6 @@ export default function WorkerSignup()
             setValid(valid => ({...valid, contact:true}))
             console.log('Valid Contact')
         }
-        
-        // if(form.ssn.length !== 10){
-        //     console.log(form.ssn, form.ssn.length)
-        //     setValid(valid => ({...valid, ssn:false}))
-        //     console.log('Invalid SSN')
-        //     setMessage(message => ({...message, msg:'Invalid SSN'}))
-        //     console.log(message)
-        // }
-        // else{
-        //     setValid(valid => ({...valid, ssn:true}))
-        //     console.log('Valid SSN')
-        // }
 
         if(form.designation=="select")
         {
@@ -127,8 +115,12 @@ export default function WorkerSignup()
 
         if(valid.confirmPassword && valid.contact && valid.password && valid.designation){
             setMessage(message => ({...message, msg:""}))
+            if(form.designation === 'admin'){
+                setForm(form=>({...form, department:null}))
+            }
             setSubmit(true)
             console.log('sending employee for signup')
+            console.log(form)
             regEmployee()
 
         }
@@ -152,11 +144,7 @@ export default function WorkerSignup()
                     {!submit && <div className={` font-[Poppins] h-2 text-red-600 message`}>
                            {message.msg} 
                     </div>}
-                    {/* <div className='flex flex-row items-center justify-center w-4/5'>
-                        <input name='ssn' onChange={handleChange} value={form.ssn} type="text" placeholder="SSN: XXXX-XX-XXXX" 
-                            className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
-                        </input>
-                    </div> */}
+                    
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='name' onChange={handleChange} value={form.name} type="text" placeholder="Name" 
                             className="w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium">
@@ -166,10 +154,10 @@ export default function WorkerSignup()
                     <div className="relative w-full lg:max-w-sm">
                         <select name = "designation" onChange={handleChange} value={form.designation} className="block py-3 px-4 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected value="select" >Select Designation</option>
-                            <option value="corporator">Corporator</option>
+                            {/* <option value="corporator">Corporator</option> */}
                             <option value="employee">Employee</option>
-                            <option value="adming">Admin</option>
-                            <option value="mayor">Mayor</option>
+                            <option value="admin">Admin</option>
+                            {/* <option value="mayor">Mayor</option> */}
                         </select>
                     </div>
                     </div>
@@ -183,28 +171,18 @@ export default function WorkerSignup()
                             className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.contact ? "border-[2px] border-white" : "border-[2px] border-red-700"}`}>
                         </input>
                     </div>
-                    {/* <div className='flex flex-row items-center justify-center w-4/5'>
-                    <div className="relative w-full lg:max-w-sm">
-                        <select name = "ward" onChange={handleChange} value={form.ward} className="block py-3 px-4 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected value = "select">Select Ward</option>
-                            <option value="1">Lohegaon Airport	</option>
-                            <option value="2">Kharadi Infotech Park	</option>
-                            <option value="3">Vimannagar Sanjay Park	</option>
-                            <option value="4">Nagpur Chawl	</option>
-                        </select>
-                    </div>
-                    </div> */}
-                    <div className='flex flex-row items-center justify-center w-4/5'>
-                    <div className="relative w-full lg:max-w-sm">
-                        <select name = "department" onChange={handleChange} value={form.department} className="block py-3 px-4 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected value = "select">Select Department</option>
-                            <option value="99">Garbage and Sewage Management Department 	</option>
-                            <option value="35">Power Supply Department	</option>
-                            <option value="55">Road Management Department	</option>
-                            <option value="25">Water Department	</option>
-                        </select>
-                    </div>
-                    </div>
+                    
+                    {form.designation === 'employee' && <div className='flex flex-row items-center justify-center w-4/5'>
+                        <div className="relative w-full lg:max-w-sm">
+                            <select name = "department" onChange={handleChange} value={form.department} className="block py-3 px-4 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected value = "select">Select Department</option>
+                                <option value="99">Garbage and Sewage Management Department</option>
+                                <option value="35">Power Supply Department	</option>
+                                <option value="55">Road Management Department	</option>
+                                <option value="25">Water Department	</option>
+                            </select>
+                        </div>
+                    </div>}
                     <div className='flex flex-row items-center justify-center w-4/5'>
                         <input name='password' onChange={handleChange} value={form.password} type="password" placeholder="Password" 
                             className={`w-full h-10 shadow-sm shadow-white rounded-md text-black placeholder:text-gray-400 font-[Poppins] px-4 outline-none font-medium ${valid.password ? "border-[2px] border-white" : "border-[2px] border-red-700"}`}>

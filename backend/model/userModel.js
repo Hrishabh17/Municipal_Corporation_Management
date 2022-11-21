@@ -40,6 +40,7 @@ const auth = async(data) =>{
     if(value.exists===0){
         const value2 = await new Promise((resolve, reject)=>{
             console.log('in emp')
+
             con.query(query2, (err, res, fields) => {
                 if (err)
                     reject(err);

@@ -19,10 +19,13 @@ export default function Header()
   const navigate = useNavigate()
 
   const {value, setValue} = useContext(UserContext)
-  var dropdownLinks = [{name:'Log In', link:'/login'}]
+  var dropdownLinks = [{name:'Log In', link:'/login'},{name:'Emp Signup', link:'/workersignup'}]
 
-  useState(()=>{
+  useEffect(()=>{
     if(value.exists===true && value.type==='user'){
+      setProfileImage(Buffer.from(value.profile_image).toString())
+    }
+    if(value.exists===true && value.type==='employee' && value.profileImage!==null){
       setProfileImage(Buffer.from(value.profile_image).toString())
     }
   }, [])
@@ -31,7 +34,8 @@ export default function Header()
   
   if(value.exists===false){
     dropdownLinks = [
-      {name:'LogIn', link:'/login'}
+      {name:'LogIn', link:'/login'},
+      {name:'Emp Signup', link:'/workersignup'}
     ]
   }
   else if(value.exists === true && value.type==='user'){
