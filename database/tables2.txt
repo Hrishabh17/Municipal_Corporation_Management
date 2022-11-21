@@ -6,7 +6,7 @@ create table if not exists users(user_number bigint not null,user_name varchar(5
 
 create table if not exists ward(ward_number int,ward_name varchar(40),primary key(ward_number));
 
-create table if not exists employee(ssn bigint not null,ward_number int,employee_name varchar(30) not null,designation varchar(30), employee_address varchar(150), passcode varchar(16) not null, profile_image longblob, primary key(ssn),foreign key(ward_number) references ward(ward_number));
+create table if not exists employee(ssn bigint not null,ward_number int,employee_name varchar(30) not null,designation varchar(30), department_id int, contact_num bigint, employee_address varchar(150), passcode varchar(16) not null, profile_image longblob, primary key(ssn),foreign key(ward_number) references ward(ward_number));
 
 create table if not exists complaint(complaint_number bigint not null, user_id bigint not null, ward_number int, complaint_description varchar(150) ,complaint_photo longblob,complaint_status varchar(30) ,complaint_address varchar(150),priority char(25),registered_time time,registration_date date,completion_time time,completion_date date,complaint_type varchar(150),estimated_time bigint,primary key(complaint_number),foreign key(ward_number) references ward(ward_number),foreign key(user_id)references users(user_number));
 
@@ -16,9 +16,24 @@ create table if not exists comments(comment_description varchar(250),comment_tim
 
 insert into ward values(25111,'Hadapsar-Mundhwa'),(35111,'Sinhgad'),(55111,'Kondhwa'),(99111,'Aundh-Baner'),(25666,'Kothrud-Bawdhan'),(12554,'Warje-Karvenagar'),(98986,'Shivajinagar'),(14563,'Wanawadi-Ramtekadi'),(25896,'Dhankawadi-Sahakar Nagar'),(35795,'Bibwewadi');
 
-insert into employee values(25896,25111,'Sandhya Gagre','corporator','erandwane', 'Sandhya@123', null),(12563,35111,'Umesh Mali','corporator','shivajinagar','Umesh@123', null),(99456,55111,'Nitin Udas','corporator','katraj', 'Nitin@123', null),(12455,99111,'Sandip Kadam','corporator','kothrud','Sandip@123', null),(35789,25666,'Jayant Bhosekar','corporator','karve nagar','Jayant@123', null),(78546,12554,'Ganesh Sonuene','corporator','warje','Ganesh@123', null),(85852,98986,'Ravi Pawar','corporator','kothrud','Ravi@123', null),(14758,14563,'Sanjay Gawde','corporator','kothrud','Sanjay@123', null),(65498,25896,'Yunus Pathan','corporator','baner','Yunus@123', null),(10232,35795,'Avinash Sakpal','corporator','pimpri','Avinash@123', null);
+insert into employee values(25896,25111,'Sandhya Gagre','corporator',null,9867689246, 'erandwane', 'Sandhya@123', null),(12563,35111,'Umesh Mali','corporator',null,9867459246,'shivajinagar','Umesh@123', null),(99456,55111,'Nitin Udas','corporator',null,9858689222,'katraj', 'Nitin@123', null),(12455,99111,'Sandip Kadam','corporator',null,9858759222,'kothrud','Sandip@123', null),(35789,25666,'Jayant Bhosekar','corporator',null,9858689742,'karve nagar','Jayant@123', null),(78546,12554,'Ganesh Sonuene','corporator',null,9858746871,'warje','Ganesh@123', null),(85852,98986,'Ravi Pawar','corporator',null,9857631425,'kothrud','Ravi@123', null),(14758,14563,'Sanjay Gawde','corporator',null,7864579577,'kothrud','Sanjay@123', null),(65498,25896,'Yunus Pathan','corporator',null,9854578922,'baner','Yunus@123', null),(10232,35795,'Avinash Sakpal','corporator',null,9858667894,'pimpri','Avinash@123', null);
 
-insert into department values(25,'Water Department',25896),(35,'Power Supply Department',12563),(55,'Road Management Department',99456),(99,'Garbage and Sewage Management Department',12455);
+insert into employee (ssn,employee_name,designation,department_id,contact_num,employee_address,passcode) value(75369,'Rajesh Sharma','employee',null,8576914258,'Koregaon Park','Rajesh@123');
 
-insert into employee (ssn,employee_name,designation,employee_address,passcode) value(75369,'Rajesh Sharma','employee','rambaugh colony','Rajesh@123');
-insert into employee (ssn,employee_name,designation,employee_address,passcode) value(81249,'Aditya Verma','admin','viman nagar','Aditya@123');
+insert into employee (ssn,employee_name,designation,department_id,contact_num,employee_address,passcode) value(68759,'Sarvesh Singh','employee',null,8795564862,'Sakore Nagar','Sarvesh@123');
+
+insert into employee (ssn,employee_name,designation,department_id,contact_num,employee_address,passcode) value(26547,'Ritesh Shinde','employee',null,9874456975,'Kothrud','Ritesh@123');
+
+insert into employee (ssn,employee_name,designation,department_id,contact_num,employee_address,passcode) value(31549,'Priyank Verma','employee',null,9784661223,'Viman Nagar','Priyank@123');
+
+insert into department values(25,'Water Department',75369),(35,'Power Supply Department',68759),(55,'Road Management Department',26547),(99,'Garbage and Sewage Management Department',31549);
+
+Update employee set department_id = 25 where ssn = 75369;
+
+Update employee set department_id = 35 where ssn = 68759;
+
+Update employee set department_id = 55 where ssn = 26547;
+
+Update employee set department_id = 99 where ssn = 31549;
+
+insert into employee (ssn,employee_name,designation,department_id,contact_num,employee_address,passcode) value(81249,'Aditya Verma','admin',null,7863145778,'Viman Nagar','Aditya@123');

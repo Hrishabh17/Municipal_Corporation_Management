@@ -12,6 +12,7 @@ app.use(express.urlencoded({
 
 app.use('/complaint', require('./routes/complaintsRoute'));
 app.use('/user', require('./routes/userRoute'));
+app.use('/employee', require('./routes/employeeRoute'));
 
 // app.all('*', (req, res)=>{
 //     res.statusCode(404).send()
