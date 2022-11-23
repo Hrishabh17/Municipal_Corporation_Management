@@ -10,8 +10,15 @@ const getEmpByDept = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const getAllEmp = (req, res)=>{
+    const data =  empModel.getAllEmp()
+    data.then((response)=>res.json(response))
+}
+
+
 
 module.exports = {
     registerEmployee,
-    getEmpByDept
+    getEmpByDept,
+    getAllEmp
 }

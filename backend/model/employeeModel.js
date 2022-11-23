@@ -30,7 +30,22 @@ const getEmpByDept = async(data) =>{
       return value;
 }
 
+const getAllEmp = async() =>{
+  const query = `select ssn, employee_name, contact_num, designation from employee`
+  
+    const value = await new Promise((resolve, reject)=>{
+      con.query(query, (err, res, fields)=>{
+      if(err) reject(err);
+      else{
+        resolve(res)
+      }
+      })
+    })
+    return value;
+}
+
 module.exports = {
     registerEmployee,
-    getEmpByDept
+    getEmpByDept,
+    getAllEmp
 }

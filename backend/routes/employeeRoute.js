@@ -12,4 +12,9 @@ router.route('/getempbydept/:deptId')
 .post(empController.getEmpByDept)
 .put(empController.getEmpByDept)
 
+router.route('/getAllEmp')
+.get(empController.getAllEmp)
+.post(empController.getAllEmp)
+.put(empController.getAllEmp)
+
 module.exports = router
