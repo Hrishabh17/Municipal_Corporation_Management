@@ -60,6 +60,12 @@ export default function Header()
       {name:'Logout', link:'/'}
     ]
   }
+  else if(value.exists === true && value.type==='corporator'){
+    dropdownLinks = [
+      {name:'Corporator Dash', link:'/corporatordash'},
+      {name:'Logout', link:'/'}
+    ]
+  }
 
   const [dropdown, setDropdown] = useState(false)
   const dropdownRef = useRef()
@@ -109,7 +115,7 @@ export default function Header()
                       {
                         dropdownLinks.map((data, index)=>
                           <li key={index} className="hover:bg-blue-700 hover:rounded-lg w-full hover:cursor-pointer py-1" 
-                          onClick={data.name==='Logout'?()=>{setValue({exits:false}); setProfileImage(header_user); setDropdown(false); navigate('/')}:()=>{navigate(data.link)}}>{data.name}</li>
+                          onClick={data.name==='Logout'?()=>{setValue({exists:false}); setProfileImage(header_user); setDropdown(false); navigate('/')}:()=>{navigate(data.link)}}>{data.name}</li>
                         )
                       }
                   </div>

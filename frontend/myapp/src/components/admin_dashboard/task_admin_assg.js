@@ -167,9 +167,7 @@ export default function AdminDashBody(){
         return(
             <div className="w-full h-max bg-[#171717]  min-h-[740px]">
                 <div className="container mx-auto h-max rounded-xl mt-6 py-2">
-                    <div className="flex flex-row items-center justify-center gap-4 bg-[#303030] py-2 w-11/12 mx-auto rounded-xl">
-                        <h1 className="font-[Poppins] text-white font-semibold text-lg">Admin Task Assign Board</h1>
-                    </div>
+                    <div className="border-b-[0.2px] border-b-orange-200"></div>
                     {!loading && <div className="flex flex-row items-start justify-between mt-4 w-11/12 mx-auto">
                 
                         <DragDropContext onDragEnd={handleOnDragEnd} onDragStart={handleOnDragStart}>

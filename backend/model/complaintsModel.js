@@ -241,6 +241,21 @@ const fetchEmpData=async(data)=>{
     return value
 }
 
+const fetchWardWiseData=async(data)=>{
+    console.log(data)
+    const query = `select complaint_number, complaint_status, complaint_description, priority, complaint_type, registration_date, completion_time, estimated_time, empAssignedId from complaint where ward_number in (select ward_number from employee where ssn = "${data}")`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+    return value
+}
+
 module.exports = {
     registerComplaints, 
     complaintData,
@@ -251,5 +266,6 @@ module.exports = {
     getcomplainttimeline,
     fetchUserComplaints,
     updateEmpDate,
-    fetchEmpData
+    fetchEmpData,
+    fetchWardWiseData
 }

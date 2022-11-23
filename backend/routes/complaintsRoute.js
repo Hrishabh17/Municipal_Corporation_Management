@@ -53,4 +53,9 @@ router.route('/getassignedcomplaints/:empId')
 .post(complaintController.fetchEmpData)
 .put(complaintController.fetchEmpData)
 
+router.route('/getwardcomplaints/:corporatorId')
+.get(complaintController.fetchWardWiseData)
+.post(complaintController.fetchWardWiseData)
+.put(complaintController.fetchWardWiseData)
+
 module.exports = router

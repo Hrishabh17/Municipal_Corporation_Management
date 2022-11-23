@@ -14,6 +14,7 @@ import { UserContext } from './components/context';
 import Contact from './components/contact_us/contact';
 import About from './components/about_us/about1';
 import WorkerSignup from './components/Login_Signup/worker_signup';
+import CorporatorDashboard from './components/corporator_dashboard/corporatorDashPage';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
                 <Route path='/contact' element={<Contact/>}/>
                 <Route path='/About' element={<About/>}/>
                 <Route path='/WorkerSignup' element={<WorkerSignup/>}/>
+                <Route path='/corporatordash' element={<CorporatorDashboard/>}/>
             </Routes>
           </UserContext.Provider>
       </Router>
