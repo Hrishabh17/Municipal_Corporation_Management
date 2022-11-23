@@ -52,6 +52,11 @@ const fetchEmpData = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const fetchWardWiseData = (req, res)=>{
+    const data =  complaintsModel.fetchWardWiseData(req.params.corporatorId)
+    data.then((response)=>res.json(response))
+}
+
 module.exports = {
     registerComplaint,
     complaintData,
@@ -62,5 +67,6 @@ module.exports = {
     getcomplainttimeline,
     fetchUserComplaints, 
     updateEmpDate, 
-    fetchEmpData
+    fetchEmpData,
+    fetchWardWiseData
 }
