@@ -22,7 +22,6 @@ const auth = async(data) =>{
     const query2 = `Select ssn, employee_name, profile_image, designation from employee where(employee_name = "${data.username}" and passcode = "${data.password}")`
 
     const value = await new Promise((resolve, reject)=>{
-        console.log('in user')
         con.query(query, (err, res, fields) => {
             if (err)
                 reject(err);
@@ -39,8 +38,6 @@ const auth = async(data) =>{
 
     if(value.exists===0){
         const value2 = await new Promise((resolve, reject)=>{
-            console.log('in emp')
-
             con.query(query2, (err, res, fields) => {
                 if (err)
                     reject(err);
@@ -54,7 +51,6 @@ const auth = async(data) =>{
                 }
             })
         })
-
         return value2
     }
     return value

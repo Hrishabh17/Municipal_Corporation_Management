@@ -47,7 +47,6 @@ const registerComplaints = async(data) =>{
 }
 
 const complaintData = async()=>{
-    // const query1 = 'select count(complaint_number) as count from complaint where(complaint_status = "Pending")'
     const query2 = 'select count(complaint_number) as count from complaint where(complaint_status = "Resolved")'
     const query1 = 'select count(complaint_number) as count from complaint'
 
@@ -88,7 +87,6 @@ const searchData = async(data)=>{
             }
         })
     })
-
     return {value: value}
 }
 
@@ -103,10 +101,7 @@ const fetchAllData=async()=>{
             }
         })
     })
-
-    console.log(value)
     return value
-
 }
 
 const updatecomplaint=async(data)=>{
@@ -204,10 +199,7 @@ const fetchUserComplaints=async(data)=>{
             }
         })
     })
-
-    console.log(value)
     return value
-
 }
 
 const updateEmpDate=async(data)=>{
@@ -232,8 +224,6 @@ const updateEmpDate=async(data)=>{
             }
         })
     })
-
-    console.log(value)
     return {value, value2}
 }
 
@@ -248,8 +238,6 @@ const fetchEmpData=async(data)=>{
             }
         })
     })
-
-    console.log(value)
     return value
 }
 

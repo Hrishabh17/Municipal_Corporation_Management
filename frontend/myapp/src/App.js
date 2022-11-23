@@ -8,7 +8,6 @@ import WorkerDashboard from './components/worker_dashboard/workerDashPage';
 import ComplaintPage from './components/complaint/complaintPage';
 import UserCompalints from './components/userPages/userPage';
 import AdminDashboard from './components/admin_dashboard/adminDashPage';
-import TabEmp from './components/admin_dashboard/emptable';
 import SuccessMsgPage from './components/successPage';
 import ComplaintDetailPage from './components/complaint/complaintDetailPage';
 import { UserContext } from './components/context';
@@ -32,7 +31,6 @@ function App() {
                 <Route path='/empdash' element={<WorkerDashboard/>}/>
                 <Route path='/usercomplaints' element={<UserCompalints/>}/>
                 <Route path='/admindash' element={<AdminDashboard/>}/>
-                <Route path='/TabEmp' element={<TabEmp/>}/>
                 <Route path='/success' element={<SuccessMsgPage/>}/>
                 <Route path='/viewcomplaint' element={<ComplaintDetailPage/>}/>
                 <Route path='/contact' element={<Contact/>}/>
