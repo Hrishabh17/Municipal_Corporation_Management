@@ -80,8 +80,8 @@ export default function ToDo(props)
                     <h1 className="text-white font-[Poppins] text-start text-xs py-1 px-2 rounded-xl bg-[#697d36]">{props.description.complaint_description}</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
-                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#85462d]">{props.description.registration_date.slice(0,10)}</h1>
-                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585]">{props.description.completion_time===null?'ET : TBA':props.description.completion_time}</h1>
+                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#85462d]">RD: {props.description.registration_date.slice(0,10)}</h1>
+                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585]">{props.description.estimated_time===null?'ET : TBA':`ET: ${props.description.estimated_time.slice(0, 10)}`}</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#0a5d83]">CUId: {props.description.complaint_number}</h1>

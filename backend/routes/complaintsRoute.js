@@ -43,4 +43,14 @@ router.route('/fetchusercomplaints')
 .post(complaintController.fetchUserComplaints)
 .put(complaintController.fetchUserComplaints)
 
+router.route('/updateempdate')
+.get(complaintController.updateEmpDate)
+.post(complaintController.updateEmpDate)
+.put(complaintController.updateEmpDate)
+
+router.route('/getassignedcomplaints/:empId')
+.get(complaintController.fetchEmpData)
+.post(complaintController.fetchEmpData)
+.put(complaintController.fetchEmpData)
+
 module.exports = router

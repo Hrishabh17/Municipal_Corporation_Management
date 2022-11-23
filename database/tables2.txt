@@ -8,7 +8,7 @@ create table if not exists ward(ward_number int,ward_name varchar(40),primary ke
 
 create table if not exists employee(ssn bigint not null,ward_number int,employee_name varchar(30) not null,designation varchar(30), department_id int, contact_num bigint, employee_address varchar(150), passcode varchar(16) not null, profile_image longblob, primary key(ssn),foreign key(ward_number) references ward(ward_number));
 
-create table if not exists complaint(complaint_number bigint not null, user_id bigint not null, ward_number int, complaint_description varchar(150) ,complaint_photo longblob,complaint_status varchar(30) ,complaint_address varchar(150),priority char(25),registered_time time,registration_date date,completion_time time,completion_date date,complaint_type varchar(150),estimated_time bigint,primary key(complaint_number),foreign key(ward_number) references ward(ward_number),foreign key(user_id)references users(user_number));
+create table if not exists complaint(complaint_number bigint not null, user_id bigint not null, ward_number int, complaint_description varchar(150) ,complaint_photo longblob,complaint_status varchar(30) ,complaint_address varchar(150),priority char(25),registered_time time,registration_date date,completion_time time,completion_date date,complaint_type varchar(150),estimated_time date, empAssignedId int,primary key(complaint_number),foreign key(ward_number) references ward(ward_number),foreign key(user_id)references users(user_number));
 
 create table if not exists department(department_number int not null,department_name varchar(40),mgr_ssn bigint,foreign key(mgr_ssn) references employee(ssn),primary key(department_name));
 

@@ -7,4 +7,9 @@ router.route('/register')
 .post(empController.registerEmployee)
 .put(empController.registerEmployee)
 
+router.route('/getempbydept/:deptId')
+.get(empController.getEmpByDept)
+.post(empController.getEmpByDept)
+.put(empController.getEmpByDept)
+
 module.exports = router
