@@ -16,6 +16,21 @@ const registerEmployee = async(data) =>{
         return {register:true};
 }
 
+const getEmpByDept = async(data) =>{
+    const query = `select ssn, employee_name from employee where(department_id = ${data} and designation='employee')`
+    
+      const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields)=>{
+        if(err) reject(err);
+        else{
+          resolve(res)
+        }
+        })
+      })
+      return value;
+}
+
 module.exports = {
-    registerEmployee
+    registerEmployee,
+    getEmpByDept
 }

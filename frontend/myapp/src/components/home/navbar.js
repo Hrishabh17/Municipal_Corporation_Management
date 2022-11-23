@@ -22,15 +22,19 @@ export default function Header()
   var dropdownLinks = [{name:'Log In', link:'/login'},{name:'Emp Signup', link:'/workersignup'}]
 
   useEffect(()=>{
-    if(value.exists===true && value.type==='user'){
-      setProfileImage(Buffer.from(value.profile_image).toString())
+    try{
+        if(value.exists===true && value.type==='user'){
+          setProfileImage(Buffer.from(value.profile_image).toString())
+        }
+        if(value.exists===true && value.type==='employee' && value.profileImage!==null){
+          setProfileImage(Buffer.from(value.profile_image).toString())
+        }
     }
-    if(value.exists===true && value.type==='employee' && value.profileImage!==null){
-      setProfileImage(Buffer.from(value.profile_image).toString())
+    catch(err){
+      console.log(err)
     }
-  }, [])
+  }, [value])
 
-  console.log(profileImage)
   
   if(value.exists===false){
     dropdownLinks = [

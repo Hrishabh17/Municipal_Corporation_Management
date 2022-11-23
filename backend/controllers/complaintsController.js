@@ -41,7 +41,16 @@ const fetchUserComplaints = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const updateEmpDate = (req, res)=>{
+    const data =  complaintsModel.updateEmpDate(req.body)
+    data.then((response)=>res.json(response))
+}
 
+const fetchEmpData = (req, res)=>{
+    // console.log('reqbody : ', req.params.id)
+    const data =  complaintsModel.fetchEmpData(req.params.empId)
+    data.then((response)=>res.json(response))
+}
 
 module.exports = {
     registerComplaint,
@@ -51,5 +60,7 @@ module.exports = {
     updatecomplaint,
     addComment,
     getcomplainttimeline,
-    fetchUserComplaints
+    fetchUserComplaints, 
+    updateEmpDate, 
+    fetchEmpData
 }

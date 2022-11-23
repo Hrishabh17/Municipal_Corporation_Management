@@ -28,7 +28,7 @@ const registerComplaints = async(data) =>{
     const value = await new Promise((resolve, reject)=>{
         const query = `Insert into complaint values(${id}, ${data.user}, ${data.ward}, "${data.description}", "${data.problemImage}", 
                         "Pending", "${data.location}", ${null}, "${comment_time}", "${comment_date}", ${null}, ${null}, "${data.department}",
-                        ${null})`
+                        ${null}, ${null})`
 
                         
         con.query(query, (err, res, fields)=>{
@@ -93,7 +93,7 @@ const searchData = async(data)=>{
 }
 
 const fetchAllData=async()=>{
-    const query = `select complaint_number, complaint_status, complaint_description, priority, complaint_type, registration_date, completion_time from complaint`
+    const query = `select complaint_number, complaint_status, complaint_description, priority, complaint_type, registration_date, completion_time, estimated_time, empAssignedId from complaint`
     const value = await new Promise((resolve, reject)=>{
         con.query(query, (err, res, fields) => {
             if (err)
@@ -110,7 +110,29 @@ const fetchAllData=async()=>{
 }
 
 const updatecomplaint=async(data)=>{
-    const query = `update complaint set complaint_status="${data.status}" where complaint_number = ${data.id}`
+    var query = ""
+    if(data.status === 'Resolved'){
+        var newDate = new Date()
+        var year = newDate.getFullYear()
+        var month = newDate.getMonth()
+        var date = newDate.getDate()
+        var hours = newDate.getHours()
+        var minutes = newDate.getMinutes()
+        var seconds = newDate.getSeconds()
+
+        var completion_time = ""
+        var completion_date = ""        
+        completion_date += year + "-" + (month<10?"0":"")+ month + (date<10?"0":"") + "-"+date
+        
+        completion_time += (hours<10 ? "0":"") + hours + ":"
+        completion_time += (minutes<10 ? "0":"") + minutes + ":"
+        completion_time += (seconds<10 ? "0":"")+seconds
+
+        query = `update complaint set complaint_status="${data.status}",completion_time="${completion_time}", completion_date="${completion_date}" where complaint_number = ${data.id}`
+    }
+    else{
+        query = `update complaint set complaint_status="${data.status}" where complaint_number = ${data.id}`
+    }
     const query2 = `Insert into comments values("Complaint moved to the ${data.status} section", "${data.commentTime}", ${data.id}, ${data.empId})`
 
     const value = await new Promise((resolve, reject)=>{
@@ -188,6 +210,49 @@ const fetchUserComplaints=async(data)=>{
 
 }
 
+const updateEmpDate=async(data)=>{
+    const query = `update complaint set empAssignedId=${data.empAssigned}, estimated_time="${data.estimatedDate}" where complaint_number = ${data.id}`
+    const query2 = `Insert into comments values("Estimated Date of Completion : ${data.estimatedDate}", "${data.comment_time}", ${data.id}, ${data.empId})`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve({updated:true})
+            }
+        })
+    })
+
+    const value2 = await new Promise((resolve, reject)=>{
+        con.query(query2, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve({updated:true})
+            }
+        })
+    })
+
+    console.log(value)
+    return {value, value2}
+}
+
+const fetchEmpData=async(data)=>{
+    const query = `select complaint_number, complaint_status, complaint_description, priority, complaint_type, registration_date, completion_time, estimated_time from complaint where(empAssignedId=${data})`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    console.log(value)
+    return value
+}
+
 module.exports = {
     registerComplaints, 
     complaintData,
@@ -196,5 +261,7 @@ module.exports = {
     updatecomplaint,
     addComment,
     getcomplainttimeline,
-    fetchUserComplaints
+    fetchUserComplaints,
+    updateEmpDate,
+    fetchEmpData
 }

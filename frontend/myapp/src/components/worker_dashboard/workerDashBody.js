@@ -4,7 +4,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import _ from "lodash";
 const axios = require('axios')
 
-export default function WorkerDashBody(){
+export default function WorkerDashBody(props){
 
     const [toDoData, setToDoData] = useState([])
     const [inProgressData, setInProgressData] = useState([])
@@ -29,33 +29,35 @@ export default function WorkerDashBody(){
     })
 
     const getAllData = async()=>{
-        await axios.get('/complaint/getallcomplaints').then((response)=>{
-            setLoading(true)
-
-            response.data?.map((data)=>{
-                if(data.complaint_status === 'Pending'){
-                    setToDoData(toDoData =>[...toDoData, data])
+        if(props.empId!==undefined){
+            await axios.get(`/complaint/getassignedcomplaints/${props.empId}`).then((response)=>{
+                setLoading(true)
+    
+                response.data?.map((data)=>{
+                    if(data.complaint_status === 'Pending'){
+                        setToDoData(toDoData =>[...toDoData, data])
+                    }
+                    else if(data.complaint_status === 'Resolved'){
+                        setDoneData(doneData =>[...doneData, data])
+                    }
+                    else if(data.complaint_status === 'Working'){
+                        setInProgressData(inProgressData =>[...inProgressData, data])
+                    }
+                })
+    
+                setState(state=>({...state, toDo:{title:'To Do', items:toDoData}}))
+                setState(state=>({...state, inProgress:{title:'In Progress', items:inProgressData}}))
+                setState(state=>({...state, done:{title:'Done', items:doneData}}))
+    
+                setLoading(false)
+                if(loading === false){
+                    console.log(state)
                 }
-                else if(data.complaint_status === 'Resolved'){
-                    setDoneData(doneData =>[...doneData, data])
-                }
-                else if(data.complaint_status === 'Working'){
-                    setInProgressData(inProgressData =>[...inProgressData, data])
-                }
-            })
-
-            setState(state=>({...state, toDo:{title:'To Do', items:toDoData}}))
-            setState(state=>({...state, inProgress:{title:'In Progress', items:inProgressData}}))
-            setState(state=>({...state, done:{title:'Done', items:doneData}}))
-
-            setLoading(false)
-            if(loading === false){
-                console.log(state)
-            }
-
-        }).catch((err)=>{
-            console.log(err)
-        }) 
+    
+            }).catch((err)=>{
+                console.log(err)
+            }) 
+        }
     }
    
     useEffect(()=>{

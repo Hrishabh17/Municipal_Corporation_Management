@@ -18,6 +18,7 @@ export default function Login()
           )
           .then(function (response) {
             if(response.status === 200 && response.data.exists === 1){
+                console.log(response.data)
                 setValue(value=>({...value, exists:true, type:response.data.type, user:response.data.user, user_id:response.data.user_id, profile_image:response.data.profile_image}))
                 toast.success("Successfully Logged In")
                 setTimeout(()=>{

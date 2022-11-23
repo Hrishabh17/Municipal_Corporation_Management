@@ -5,7 +5,13 @@ const registerEmployee = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const getEmpByDept = (req, res)=>{
+    const data =  empModel.getEmpByDept(req.params.deptId)
+    data.then((response)=>res.json(response))
+}
+
 
 module.exports = {
-    registerEmployee
+    registerEmployee,
+    getEmpByDept
 }
