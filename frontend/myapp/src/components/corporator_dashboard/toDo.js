@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 import {MdCheckCircle} from "react-icons/md"
 import {CgSandClock} from "react-icons/cg"
 import {FiTool} from "react-icons/fi"
@@ -8,6 +9,31 @@ import axios from "axios";
 
 export default function ToDo(props)
 {
+
+    const [send, setSend] = useState(false)
+    const navigate = useNavigate()
+    const [data, setData] = useState([])
+    
+    async function getComplaint(ids) {
+        await axios.get(`/complaint/search/${ids}`).then((response)=>{
+            setData(response.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const handleClick = ()=>{
+        getComplaint(props.description.complaint_number)
+        setSend(true)
+    }
+
+    useEffect(()=>{
+        if(data.length!==0 && send){
+            console.log(data)
+            navigate('/viewcorporatorcomplaint', {state:data.value})
+        }
+
+    }, [data])
 
     var newDate = new Date()
     var year = newDate.getFullYear()
@@ -25,11 +51,7 @@ export default function ToDo(props)
     const [form, setForm] = useState({id:props.description.complaint_number, commentTime:comment_time, comment:'', empId:props.corporatorId})
 
     const handleChange = (e)=>{
-        console.log(e.target.value)
         setForm(form =>({...form, comment:e.target.value}))
-        if(e.key==='Enter'){
-            console.log('enter pressed')
-        }
     }
 
     const submitData = (e)=>{
@@ -48,10 +70,7 @@ export default function ToDo(props)
             comment_time += (hours<10 ? "0":"") + hours + ":"
             comment_time += (minutes<10 ? "0":"") + minutes + ":"
             comment_time += (seconds<10 ? "0":"")+seconds
-            
-            console.log('enter pressed')
             setForm(form =>({...form, commentTime:comment_time}))
-            console.log(form)
             submitComment()
         }
     }
@@ -91,6 +110,7 @@ export default function ToDo(props)
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <input type="text" name="comment" value={form.comment} onChange={handleChange} onKeyDown={submitData} placeholder="Write a Note" className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585] outline-none"></input>
+                    <h1 onClick={handleClick} className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#5248dd] hover:bg-white hover:text-black hover:cursor-pointer">View more</h1>
                 </div>
             </div>
         </div>
