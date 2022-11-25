@@ -58,4 +58,25 @@ router.route('/getwardcomplaints/:corporatorId')
 .post(complaintController.fetchWardWiseData)
 .put(complaintController.fetchWardWiseData)
 
+
+router.route('/roadcomplaints')
+.get(complaintController.roadcomplaints)
+.post(complaintController.roadcomplaints)
+.put(complaintController.roadcomplaints)
+
+router.route('/barGraph')
+.get(complaintController.barGraph)
+.post(complaintController.barGraph)
+.put(complaintController.barGraph)
+
+router.route('/estTime')
+.get(complaintController.estTime)
+.post(complaintController.estTime)
+.put(complaintController.estTime)
+
+router.route('/overdue')
+.get(complaintController.overdue)
+.post(complaintController.overdue)
+.put(complaintController.overdue)
+
 module.exports = router

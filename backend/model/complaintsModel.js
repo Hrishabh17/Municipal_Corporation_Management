@@ -256,6 +256,132 @@ const fetchWardWiseData=async(data)=>{
     return value
 }
 
+
+
+const barGraph=async(data)=>{
+    const query = `select count(complaint_type), complaint_type from complaint where complaint_status = "Resolved"`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    console.log(value)
+    return value
+
+}
+
+
+
+
+const estTime=async(data)=>{
+
+    var newDate = new Date()
+    var year = newDate.getFullYear()
+    var month = newDate.getMonth()
+    var date = newDate.getDate()
+
+    var curr_date = ""
+
+    curr_date += year + "-" + month + "-" +date
+
+    const query = `select count(complaint_number), complaint_type from complaint where ${curr_date} < estimated_time and complaint_status = "Resolved"`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    console.log(value)
+    return value
+
+}
+
+
+
+
+const overdue=async(data)=>{
+
+    var newDate = new Date()
+    var year = newDate.getFullYear()
+    var month = newDate.getMonth()
+    var date = newDate.getDate()
+
+    var curr_date = ""
+
+    curr_date += year + "-" + month + "-" +date
+
+    const query = `select count(complaint_number), complaint_type from complaint where ${curr_date} > estimated_time and complaint_status = "Pending"`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    console.log(value)
+    return value
+
+}
+
+
+const roadcomplaints= async(data)=>{
+    // const query = `select count(complaint_number) as count,completion_date from complaint where complaint_status='pending' and complaint_type='Road Management Department' and completion_date> date(registration_date + estimated_time)`
+    // const query1 = `select count(complaint_number) as count,completion_date from complaint where complaint_status='resolved' and complaint_type='Road Management Department' and completion_date<date(registration_date+estimated_time)`
+     const query2 = `SELECT count(complaint_type) as count, complaint_type from complaint group by complaint_type`
+    
+    
+    // const value = await new Promise((resolve, reject)=>{
+    //     con.query(query, (err, res, fields) => {
+    //         if (err)
+    //             reject(err);
+    //         else{
+    //             resolve(res)
+    //         }
+    //     })
+    // })
+
+    // const value1 = await new Promise((resolve, reject)=>{
+    //     con.query(query1, (err, res, fields) => {
+    //         if (err)
+    //             reject(err);
+    //         else{
+    //             resolve(res)
+    //         }
+    //     })
+    // })
+
+    const value2 = await new Promise((resolve, reject)=>{
+        con.query(query2, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+
+    // console.log(value)
+    // console.log(value1)
+    console.log(value2)
+
+    return value2
+
+}
+
+
+
 module.exports = {
     registerComplaints, 
     complaintData,
@@ -267,5 +393,9 @@ module.exports = {
     fetchUserComplaints,
     updateEmpDate,
     fetchEmpData,
-    fetchWardWiseData
+    fetchWardWiseData,
+    roadcomplaints,
+    barGraph,
+    estTime,
+    overdue
 }

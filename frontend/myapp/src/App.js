@@ -16,6 +16,12 @@ import About from './components/about_us/about1';
 import WorkerSignup from './components/Login_Signup/worker_signup';
 import CorporatorDashboard from './components/corporator_dashboard/corporatorDashPage';
 import CorporatorComplaintDetailPage from './components/corporator_dashboard/complaintDetailPage';
+import Updateform from './components/Update_Profile/Update_page';
+import MayorPage from './components/Mayor/mayor_page';
+import MayorWater from './components/Mayor/water';
+import MayorGarbage from './components/Mayor/garbage';
+import MayorRoad from './components/Mayor/road';
+import MayorPower from './components/Mayor/power';
 
 function App() {
 
@@ -40,6 +46,12 @@ function App() {
                 <Route path='/WorkerSignup' element={<WorkerSignup/>}/>
                 <Route path='/corporatordash' element={<CorporatorDashboard/>}/>
                 <Route path='/viewcorporatorcomplaint' element={<CorporatorComplaintDetailPage/>}/>
+                <Route path='/updateprofile' element={<Updateform/>}/>
+                <Route path='/mayor' element={<MayorPage/>}/>
+                <Route path='/water' element={<MayorWater/>}/>
+                <Route path='/garbage' element={<MayorGarbage/>}/>
+                <Route path='/road' element={<MayorRoad/>}/>
+                <Route path='/power' element={<MayorPower/>}/>
             </Routes>
           </UserContext.Provider>
       </Router>

@@ -57,6 +57,32 @@ const fetchWardWiseData = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+
+const roadcomplaints = (req, res)=>{
+    const data =  complaintsModel.roadcomplaints(req.body)
+    data.then((response)=>res.json(response))
+}
+
+
+const barGraph = (req, res)=>{
+    const data =  complaintsModel.barGraph(req.body)
+    data.then((response)=>res.json(response))
+}
+
+
+const estTime = (req, res)=>{
+    const data =  complaintsModel.estTime(req.body)
+    data.then((response)=>res.json(response))
+}
+
+const overdue = (req, res)=>{
+    const data =  complaintsModel.overdue(req.body)
+    data.then((response)=>res.json(response))
+}
+
+
+
+
 module.exports = {
     registerComplaint,
     complaintData,
@@ -68,5 +94,9 @@ module.exports = {
     fetchUserComplaints, 
     updateEmpDate, 
     fetchEmpData,
-    fetchWardWiseData
+    fetchWardWiseData,
+    roadcomplaints,
+    barGraph,
+    estTime,
+    overdue
 }
