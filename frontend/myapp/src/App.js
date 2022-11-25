@@ -15,6 +15,7 @@ import Contact from './components/contact_us/contact';
 import About from './components/about_us/about1';
 import WorkerSignup from './components/Login_Signup/worker_signup';
 import CorporatorDashboard from './components/corporator_dashboard/corporatorDashPage';
+import CorporatorComplaintDetailPage from './components/corporator_dashboard/complaintDetailPage';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
                 <Route path='/About' element={<About/>}/>
                 <Route path='/WorkerSignup' element={<WorkerSignup/>}/>
                 <Route path='/corporatordash' element={<CorporatorDashboard/>}/>
+                <Route path='/viewcorporatorcomplaint' element={<CorporatorComplaintDetailPage/>}/>
             </Routes>
           </UserContext.Provider>
       </Router>
