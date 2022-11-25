@@ -37,7 +37,7 @@ export default function ToDo(props)
 
     var newDate = new Date()
     var year = newDate.getFullYear()
-    var month = newDate.getMonth()
+    var month = newDate.getMonth() + 1
     var date = newDate.getDate()
     var hours = newDate.getHours()
     var minutes = newDate.getMinutes()
@@ -58,7 +58,7 @@ export default function ToDo(props)
         if(e.key==='Enter'){
             var newDate = new Date()
             var year = newDate.getFullYear()
-            var month = newDate.getMonth()
+            var month = newDate.getMonth() + 1
             var date = newDate.getDate()
             var hours = newDate.getHours()
             var minutes = newDate.getMinutes()

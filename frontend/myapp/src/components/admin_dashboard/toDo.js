@@ -12,7 +12,7 @@ export default function ToDo(props)
     const getTime = ()=>{
         var newDate = new Date()
         var year = newDate.getFullYear()
-        var month = newDate.getMonth()
+        var month = newDate.getMonth() + 1
         var date = newDate.getDate()
         var hours = newDate.getHours()
         var minutes = newDate.getMinutes()
@@ -132,8 +132,10 @@ export default function ToDo(props)
                     <h1 className="text-white font-[Poppins] text-start text-xs py-1 px-2 rounded-xl bg-[#697d36]">{props.description.complaint_description}</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-3">
-                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#c87070]">{props.description.priority===null?'Low':props.description.priority}</h1>
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#0a5d83]">CUId: {props.description.complaint_number}</h1>
+                </div>
+                <div className="flex flex-row items-center justify-center gap-3">
+                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#c87070]">{props.description.priority===null?'Low':props.description.priority}</h1>
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585]">{props.description.estimated_time===null?'ET : TBA': `ET: ${props.description.estimated_time.slice(0, 10)}` }</h1>
                 </div>
                 {props.description.estimated_time===null && props.description.empAssignedId === null && <div className="flex flex-row items-center justify-start gap-4 w-full">

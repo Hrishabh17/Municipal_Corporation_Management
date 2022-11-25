@@ -57,6 +57,11 @@ const fetchWardWiseData = (req, res)=>{
     data.then((response)=>res.json(response))
 }
 
+const fetchWarnings = (req, res)=>{
+    const data =  complaintsModel.fetchWarnings(req.params.empId)
+    data.then((response)=>res.json(response))
+}
+
 module.exports = {
     registerComplaint,
     complaintData,
@@ -68,5 +73,6 @@ module.exports = {
     fetchUserComplaints, 
     updateEmpDate, 
     fetchEmpData,
-    fetchWardWiseData
+    fetchWardWiseData,
+    fetchWarnings
 }

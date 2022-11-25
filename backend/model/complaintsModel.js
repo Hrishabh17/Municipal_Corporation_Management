@@ -10,7 +10,7 @@ const registerComplaints = async(data) =>{
 
     var newDate = new Date()
     var year = newDate.getFullYear()
-    var month = newDate.getMonth()
+    var month = newDate.getMonth() + 1
     var date = newDate.getDate()
     var hours = newDate.getHours()
     var minutes = newDate.getMinutes()
@@ -109,7 +109,7 @@ const updatecomplaint=async(data)=>{
     if(data.status === 'Resolved'){
         var newDate = new Date()
         var year = newDate.getFullYear()
-        var month = newDate.getMonth()
+        var month = newDate.getMonth() + 1
         var date = newDate.getDate()
         var hours = newDate.getHours()
         var minutes = newDate.getMinutes()
@@ -256,6 +256,21 @@ const fetchWardWiseData=async(data)=>{
     return value
 }
 
+const fetchWarnings=async(data)=>{
+    console.log(data)
+    const query = `select complaint_number, notification from warning where complaint_number in (select complaint_number from complaint where (empAssignedId = "${data}"))`
+    const value = await new Promise((resolve, reject)=>{
+        con.query(query, (err, res, fields) => {
+            if (err)
+                reject(err);
+            else{
+                resolve(res)
+            }
+        })
+    })
+    return value
+}
+
 module.exports = {
     registerComplaints, 
     complaintData,
@@ -267,5 +282,6 @@ module.exports = {
     fetchUserComplaints,
     updateEmpDate,
     fetchEmpData,
-    fetchWardWiseData
+    fetchWardWiseData,
+    fetchWarnings
 }

@@ -14,6 +14,8 @@ create table if not exists department(department_number int not null,department_
 
 create table if not exists comments(comment_description varchar(250),comment_time datetime,complaint_number bigint,ssn bigint,foreign key(complaint_number) references complaint(complaint_number),foreign key(ssn) references employee(ssn));
 
+create table if not exists warning(notification varchar(100),complaint_number bigint primary key not null,foreign key(complaint_number) references complaint(complaint_number));
+
 insert into ward values(25111,'Hadapsar-Mundhwa'),(35111,'Sinhgad'),(55111,'Kondhwa'),(99111,'Aundh-Baner'),(25666,'Kothrud-Bawdhan'),(12554,'Warje-Karvenagar'),(98986,'Shivajinagar'),(14563,'Wanawadi-Ramtekadi'),(25896,'Dhankawadi-Sahakar Nagar'),(35795,'Bibwewadi');
 
 insert into employee values(25896,25111,'Sandhya Gagre','corporator',null,9867689246, 'erandwane', 'Sandhya@123', null),(12563,35111,'Umesh Mali','corporator',null,9867459246,'shivajinagar','Umesh@123', null),(99456,55111,'Nitin Udas','corporator',null,9858689222,'katraj', 'Nitin@123', null),(12455,99111,'Sandip Kadam','corporator',null,9858759222,'kothrud','Sandip@123', null),(35789,25666,'Jayant Bhosekar','corporator',null,9858689742,'karve nagar','Jayant@123', null),(78546,12554,'Ganesh Sonuene','corporator',null,9858746871,'warje','Ganesh@123', null),(85852,98986,'Ravi Pawar','corporator',null,9857631425,'kothrud','Ravi@123', null),(14758,14563,'Sanjay Gawde','corporator',null,7864579577,'kothrud','Sanjay@123', null),(65498,25896,'Yunus Pathan','corporator',null,9854578922,'baner','Yunus@123', null),(10232,35795,'Avinash Sakpal','corporator',null,9858667894,'pimpri','Avinash@123', null);

@@ -9,7 +9,7 @@ export default function ToDo(props)
 {
     var newDate = new Date()
     var year = newDate.getFullYear()
-    var month = newDate.getMonth()
+    var month = newDate.getMonth() + 1
     var date = newDate.getDate()
     var hours = newDate.getHours()
     var minutes = newDate.getMinutes()
@@ -34,7 +34,7 @@ export default function ToDo(props)
         if(e.key==='Enter'){
             var newDate = new Date()
             var year = newDate.getFullYear()
-            var month = newDate.getMonth()
+            var month = newDate.getMonth() + 1
             var date = newDate.getDate()
             var hours = newDate.getHours()
             var minutes = newDate.getMinutes()
@@ -86,9 +86,10 @@ export default function ToDo(props)
                 <div className="flex flex-row items-center justify-center gap-4">
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#0a5d83]">CUId: {props.description.complaint_number}</h1>
                     <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#c87070]">{props.description.complaint_status}</h1>
+                    <h1 className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#e98335]">{props.description.priority===null?'Priority : TBA':`${props.description.priority}`}</h1>
                 </div>
-                <div className="flex flex-row items-center justify-center gap-4">
-                    <input type="text" name="comment" value={form.comment} onChange={handleChange} onKeyDown={submitData} placeholder="Write a Note" className="text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585] outline-none"></input>
+                <div className="flex flex-row items-center justify-start gap-4 w-full">
+                    <input type="text" name="comment" value={form.comment} onChange={handleChange} onKeyDown={submitData} placeholder="Write a Note" className="w-11/12 text-white font-[Poppins] text-xs py-1 px-2 rounded-xl bg-[#2d5585] outline-none"></input>
                 </div>
             </div>
         </div>

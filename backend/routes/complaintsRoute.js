@@ -58,4 +58,9 @@ router.route('/getwardcomplaints/:corporatorId')
 .post(complaintController.fetchWardWiseData)
 .put(complaintController.fetchWardWiseData)
 
+router.route('/warning/:empId')
+.get(complaintController.fetchWarnings)
+.post(complaintController.fetchWarnings)
+.put(complaintController.fetchWarnings)
+
 module.exports = router

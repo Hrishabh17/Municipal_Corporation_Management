@@ -117,7 +117,7 @@ export default function AdminDashBody(){
 
         var newDate = new Date()
         var year = newDate.getFullYear()
-        var month = newDate.getMonth()
+        var month = newDate.getMonth() + 1
         var date = newDate.getDate()
         var hours = newDate.getHours()
         var minutes = newDate.getMinutes()
